@@ -307,13 +307,151 @@
 // }
 
 
+// #include<iostream>
+// using namespace std;
+
+// int main()
+// {
+//     cout<<"hello world!"<<endl;
+//     cout<<"调试控制台程序"<<endl;
+//     system("pause");
+//     return 0;
+// }
+
+/*继承中同名成员的处理方式*/
+//子类对象可以直接访问子类中同名成员
+//子类对象加作用域可以访问到父类同名成员
+//当子类与父类拥有同名的成员函数，子类会隐藏父类中所有同名成员函数，加作用域可以访问到父类中的同名成员函数
+// #include<iostream>
+// using namespace std;
+// class Base
+// {
+//     public:
+//         int m_A;
+//         Base()
+//         {
+//             m_A=100;
+//         }
+//         void func()
+//         {
+//             cout<<"Base的func函数调用"<<endl;
+//         }
+// };
+// class Son:public Base{
+//     public:
+//         int m_A;
+//         Son()
+//         {
+//             m_A=200;
+//         }
+//         void func()
+//         {
+//             cout<<"Son的func函数调用"<<endl;
+//         }
+
+// };
+// void test01()
+// {
+//     Son s;
+//     cout<<"Son中的m_A为:"<<s.m_A<<endl;
+//     cout<<"Base中的m_A为:"<<s.Base::m_A<<endl;
+//     s.func();
+//     s.Base::func();
+//     cout<<"<--------------------------->"<<endl;
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+/*继承同名静态成员处理方式*/
+//静态成员和非静态成员出现同名，处理方式一致
+//访问子类同名成员，直接访问即可
+//访问父类同名成员，需要加作用域
 #include<iostream>
 using namespace std;
+class Base
+{
+    public:
+        static int m_A;
+        int m_B;
+        Base()
+        {
+            m_B=100;
+        }
+        static void func()
+        {
+            cout<<"Base的静态func函数调用"<<endl;
+        }
+};
+int Base::m_A=100;
+class Son:public Base
+{
+    public:
+        static int m_A;
+        int m_B;
+        Son()
+        {
+            m_B=200;
+        }
+        static void func()
+        {
+            cout<<"Son的静态func函数调用"<<endl;
+        }
+};
+int Son::m_A=200;
+ostream & operator<<(ostream & cout, Base & b)
+{
+    cout << b.m_B ;
+    return cout;
+}
+ostream & operator<<(ostream & cout, Son & s)
+{
+    cout << s.m_B ;
+    return cout;
+}
+
+void test01()
+{
+    //1、通过对象访问
+    cout<<"通过对象访问"<<endl;
+    Son s;
+    cout<<"Son中的m_A为:"<<s.m_A<<endl;
+    cout<<"Base中的m_A为:"<<s.Base::m_A<<endl;
+    cout<<"*********************"<<endl;
+    //2、通过类名访问
+    cout<<"通过类名访问"<<endl;
+    cout<<"Son中的m_A为:"<<Son::m_A<<endl;
+    //第一个::代表通过类名方式访问，第二个::代表访问父类作用域下的成员
+    cout<<"Base中的m_A为:"<<Son::Base::m_A<<endl;
+}
+void test02()
+{
+    //1、通过对象访问
+    cout<<"通过对象访问"<<endl;
+    Son s;
+    Base b;
+    // s.func();
+    // s.Base::func();
+    cout<<"Son中的m_B为:"<<s<<endl;
+    cout<<"Base中的m_B为:"<<b<<endl;
+    cout<<"*********************"<<endl;
+    //2、通过类名访问
+    cout<<"通过类名访问"<<endl;
+    Son::func();
+    //第一个::代表通过类名方式访问，第二个::代表访问父类作用域下的成员
+    Son::Base::func();
+}
 
 int main()
 {
-    cout<<"hello world!"<<endl;
-    cout<<"调试控制台程序"<<endl;
+    //test01();
+    test02();
+
     system("pause");
     return 0;
 }
