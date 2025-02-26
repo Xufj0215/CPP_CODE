@@ -376,6 +376,10 @@
 //         {
 //             cout<<"Base的静态func函数调用"<<endl;
 //         }
+//         static void func(int n)
+//         {
+//             cout<<"Base的有参静态func函数调用"<<endl;
+//         }
 // };
 // int Base::m_A=100;
 // class Son:public Base
@@ -434,6 +438,7 @@
 //     Son::func();
 //     //第一个::代表通过类名方式访问，第二个::代表访问父类作用域下的成员
 //     Son::Base::func();
+//     Son::Base::func(100);
 // }
 
 // int main()
@@ -444,3 +449,99 @@
 //     system("pause");
 //     return 0;
 // }
+
+
+/*多继承语法*/
+//C++允许一个类继承多个类，可能会引发父类中有同名成员出现，需要加作用域区分
+//语法：class 子类：继承方式 父类1，继承方式 父类2
+// #include<iostream>
+// using namespace std;
+// class Base1
+// {
+//     public:
+//         Base1()
+//         {
+//             m_A=100;
+//             m_B=200;
+//         }
+//         int m_A;
+//         int m_B;
+// };
+// class Base2
+// {
+//     public:
+//         Base2()
+//         {
+//             m_A=200;
+//             m_C=300;
+//         }
+//         int m_A;
+//         int m_C;
+// };
+// class Son:public Base1,public Base2
+// {
+//     public:
+//         Son()
+//         {
+//             m_D=400;
+//             m_E=500;
+//         }
+//         int m_D;
+//         int m_E;
+// };
+// void test01()
+// {
+//     Son s;
+//     cout<<"Base1中的m_B="<<s.m_B<<endl;
+//     cout<<"Base2中的m_C="<<s.m_C<<endl;
+//     cout<<"Son中的m_D="<<s.m_D<<endl;
+//     cout<<"Son中的m_E="<<s.m_E<<endl;
+//     cout<<"Base1中的m_A="<<s.Base1::m_A<<endl;
+//     cout<<"Base2中的m_A="<<s.Base2::m_A<<endl;
+// }
+
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+/*菱形继承问题*/
+//
+#include<iostream>
+using namespace std;
+//动物类
+class Animal
+{
+    public:
+        int m_Age;
+};
+//羊类
+class Sheep:virtual public Animal{};
+
+//驼类
+class Tuo:virtual public Animal{};
+//羊驼类
+class SheepTuo:public Sheep,public Tuo{};
+
+void test01()
+{
+    SheepTuo st;
+    st.Sheep::m_Age=18;
+    st.Tuo::m_Age=28;
+    //当菱形继承时，两个父类拥有相同数据，需要加以作用域区分
+    cout<<"st.Sheep::m_Age="<<st.Sheep::m_Age<<endl;
+    cout<<"st.Tuo::m_Age="<<st.Tuo::m_Age<<endl;
+    //这份数据我们知道只要有一份就可以，但是菱形继承导致数据有两份，浪费空间
+    //解决方案：虚继承 Animal类称为虚基类
+    //
+}
+int main()
+{
+    test01();
+    system("pause");
+    return 0;
+}
