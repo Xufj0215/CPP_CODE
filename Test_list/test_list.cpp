@@ -607,7 +607,7 @@
 // }
 
 
-/*多态案例--计算器类*/
+/*多态案例1--计算器类*/
 //分别利用普通写法和多态写法，设计实现两个操作数进行运算的计算器类
 //多态的优点：1、代码组织结构清晰  2、可读性强  3、利用前期和后期的扩展以及维护性高
 // #include<iostream>
@@ -750,12 +750,204 @@
 
 
 /*纯虚函数和抽象类*/
-#include<iostream>
-using namespace std;
+//纯虚函数语法：virtual 返回值类型 函数名（参数列表）=0;
+//当类中有了纯虚函数，这个类也称为抽象类
+//抽象类特点：1、无法实例化对象  2、子类必须重写父类中的纯虚函数，否则也属于抽象类
+// #include<iostream>
+// using namespace std;
+// class Base
+// {
+//     public:
+//         //纯虚函数
+//         virtual void func()=0;
+// };
+// class Son:public Base{
+//     public:
+//         //子类必须重写父类中的纯虚函数，否则也属于抽象类
+//         void func()
+//         {
+//             cout<<"func函数调用"<<endl;
+//         }
+// };
+// int main()
+// {
+//     //Base b;//抽象类无法实例化对象
+//     // Son s;
+//     // s.func(); 
+//     Base * base=new Son;
+//     base->func();
+//     delete base;
+//     base=nullptr;
 
+//     system("pause");
+//     return 0;
+// }
+
+
+/*多态案例2--制作饮品*/
+//制作饮的大致流程为：烧水--冲泡--倒入杯中--加入辅料
+//利用多态技术实现本案例，提供抽象制作饮品基类，提供子类制作咖啡和茶
+// #include<iostream>
+// using namespace std;
+// class AbstractDrink
+// {
+//     public:
+//         //烧水
+//         virtual void Boil()=0;
+//         //冲泡
+//         virtual void Brew()=0;
+//         //倒入杯中
+//         virtual void PourInCup()=0;
+//         //加入辅料
+//         virtual void AddCondiments()=0;
+//         //制作饮品
+//         void MakeDrink()
+//         {
+//             Boil();
+//             Brew();
+//             PourInCup();
+//             AddCondiments();
+//         }
+// };
+// //制作咖啡
+// class Coffee:public AbstractDrink
+// {
+//     public:
+//         //烧水
+//         void Boil()
+//         {
+//             cout<<"煮沸水"<<endl;
+//         }
+//         //冲泡
+//         void Brew()
+//         {
+//             cout<<"冲泡咖啡"<<endl;
+//         }
+//         //倒入杯中
+//         void PourInCup()
+//         {
+//             cout<<"倒入杯中"<<endl;
+//         }
+//         //加入辅料
+//         void AddCondiments()
+//         {
+//             cout<<"加入糖和牛奶"<<endl;
+//         }
+// };
+// //制作茶
+// class Tea:public AbstractDrink
+// {
+//     public:
+//         //烧水
+//         void Boil()
+//         {
+//             cout<<"煮沸水"<<endl;
+//         }
+//         //冲泡
+//         void Brew()
+//         {
+//             cout<<"冲泡茶叶"<<endl;
+//         }
+//         //倒入杯中
+//         void PourInCup()
+//         {
+//             cout<<"倒入杯中"<<endl;
+//         }
+//         //加入辅料
+//         void AddCondiments()
+//         {
+//             cout<<"加入柠檬"<<endl;
+//         }
+// };
+// void test01()
+// {
+//     //制作咖啡
+//     AbstractDrink * ad=new Coffee;
+//     ad->MakeDrink();
+//     delete ad;
+//     ad=nullptr;
+//     cout<<"<---------------------->"<<endl;
+//     //制作茶
+//     ad=new Tea;
+//     ad->MakeDrink();
+//     delete ad;
+//     ad=nullptr;
+//     cout<<"<---------------------->"<<endl;
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+/*虚析构和纯虚析构*/
+//多态使用时，如果子类中有属性开辟到堆区，那么父类指针在释放时无法调用到子类的析构代码
+//解决办法：将父类中的析构函数改为虚析构或纯虚析构
+//虚析构和纯虚析构的共同点：1、都可以解决父类指针释放子类对象  2、都需要有具体的函数实现
+//虚析构和纯虚析构的不同点：1、虚析构有具体的函数实现，纯虚析构没有具体的函数实现（属于抽象类，无法实例化对象）
+#include<iostream>
+#include<string>
+using namespace std;
+class Animal
+{
+    public:
+        //构造函数
+        Animal()
+        {
+            cout<<"Animal的构造函数调用"<<endl;
+        }
+        //纯虚函数
+        virtual void func()=0;
+        //纯虚析构，需要声明也需要实现
+        virtual ~Animal()=0;
+        //虚析构
+        // virtual ~Animal()
+        // {
+        //     cout<<"Animal的纯虚析构函数调用"<<endl;
+        // }
+};
+Animal::~Animal()
+{
+    cout<<"Animal的纯虚析构函数调用"<<endl;
+}
+class Cat:public Animal
+{
+    public:
+        Cat(string name)
+        {
+            cout<<"Cat的构造函数调用"<<endl;
+            m_Name=new string(name);
+        }
+        virtual void func()
+        {
+            cout<<*m_Name<<"小猫在说话"<<endl;
+        }
+        ~Cat()
+        {
+            cout<<"Cat的析构函数调用"<<endl;
+            if(m_Name!=nullptr)
+            {
+                delete m_Name;
+                m_Name=nullptr;
+            }
+        }
+        string * m_Name;
+
+};
+void test01()
+{
+    Animal * abs=new Cat("Tom");
+    abs->func();
+    delete abs;
+    abs=nullptr;
+}
 int main()
 {
-     
+    test01();
+
     system("pause");
     return 0;
 }
