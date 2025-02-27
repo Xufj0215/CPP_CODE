@@ -605,3 +605,157 @@
 //     system("pause");
 //     return 0;
 // }
+
+
+/*多态案例--计算器类*/
+//分别利用普通写法和多态写法，设计实现两个操作数进行运算的计算器类
+//多态的优点：1、代码组织结构清晰  2、可读性强  3、利用前期和后期的扩展以及维护性高
+// #include<iostream>
+// using namespace std;
+// //计算器类--普通写法  
+// class Calculate
+// {
+//     public:
+//         int m_Num1;
+//         int m_Num2;
+//         int GetResult(string oper)
+//         {
+//             if(oper=="+")
+//             {
+//                 return m_Num1+m_Num2;
+//             }
+//             else if(oper=="-")
+//             {
+//                 return m_Num1-m_Num2;
+//             }
+//             else if(oper=="*")
+//             {
+//                 return m_Num1*m_Num2;
+//             }
+//             else if(oper=="/")
+//             {
+//                 return m_Num1/m_Num2;
+//             }
+//             else
+//             {
+//                 return 0;
+//             }
+//         }
+// };
+// //计算器类--多态写法
+// class AbstractCalculate
+// {
+//     public:
+//         int m_Num1;
+//         int m_Num2;
+//         //父类虚函数
+//         virtual int GetResult()
+//         {
+//             return 0;
+//         }
+// };
+// //加法计算器类
+// class AddCalculate:public AbstractCalculate
+// {
+//     public:
+//     //子类重写父类虚函数
+//     int GetResult()
+//     {
+//         return m_Num1+m_Num2;
+//     }
+// };
+// //减法计算器类
+// class SubCalculate:public AbstractCalculate
+// {
+//     public:
+//     //子类重写父类虚函数
+//     int GetResult()
+//     {
+//         return m_Num1-m_Num2;
+//     }
+// };
+// //乘法计算器类
+// class MulCalculate:public AbstractCalculate
+// {
+//     public:
+//     //子类重写父类虚函数
+//     int GetResult()
+//     {
+//         return m_Num1*m_Num2;
+//     }
+// };
+// //除法计算器类
+// class DivCalculate:public AbstractCalculate
+// {
+//     public:
+//     //子类重写父类虚函数
+//     int GetResult()
+//     {
+//         return m_Num1/m_Num2;
+//     }
+// };
+
+// void test01()
+// {
+//     cout<<"普通写法:"<<endl;
+//     Calculate c;
+//     c.m_Num1=10;
+//     c.m_Num2=10;
+//     cout<<c.m_Num1<<"+"<<c.m_Num2<<"="<<c.GetResult("+")<<endl;
+//     cout<<c.m_Num1<<"-"<<c.m_Num2<<"="<<c.GetResult("-")<<endl;
+//     cout<<c.m_Num1<<"*"<<c.m_Num2<<"="<<c.GetResult("*")<<endl;
+//     cout<<c.m_Num1<<"/"<<c.m_Num2<<"="<<c.GetResult("/")<<endl;
+//     cout<<"<---------------------->"<<endl;
+// }
+// void test02()
+// {
+//     cout<<"多态写法:"<<endl;
+//     //加法运算
+//     AbstractCalculate * abc=new AddCalculate;//父类指针或引用指向子类对象
+//     abc->m_Num1=10;
+//     abc->m_Num2=10;
+//     cout<<abc->m_Num1<<"+"<<abc->m_Num2<<"="<<abc->GetResult()<<endl;
+//     delete abc;
+//     abc=nullptr;
+//     //减法运算
+//     abc=new SubCalculate;
+//     abc->m_Num1=10;
+//     abc->m_Num2=10;
+//     cout<<abc->m_Num1<<"-"<<abc->m_Num2<<"="<<abc->GetResult()<<endl;
+//     delete abc;
+//     abc=nullptr;
+//     //乘法运算
+//     abc=new MulCalculate;
+//     abc->m_Num1=10;
+//     abc->m_Num2=10;
+//     cout<<abc->m_Num1<<"*"<<abc->m_Num2<<"="<<abc->GetResult()<<endl;
+//     delete abc;
+//     abc=nullptr;
+//     //除法运算
+//     abc=new DivCalculate;
+//     abc->m_Num1=10;
+//     abc->m_Num2=10;
+//     cout<<abc->m_Num1<<"/"<<abc->m_Num2<<"="<<abc->GetResult()<<endl;
+//     delete abc;
+//     abc=nullptr;
+// }
+// int main()
+// {
+//     test01();
+//     test02();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+/*纯虚函数和抽象类*/
+#include<iostream>
+using namespace std;
+
+int main()
+{
+     
+    system("pause");
+    return 0;
+}
