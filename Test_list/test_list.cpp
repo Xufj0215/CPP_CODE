@@ -957,174 +957,277 @@
 //电脑主要组成部件为CPU（用于计算）、显卡（用于显示）、内存条（用于存储）
 //将每个零件封装成抽象基类，并且提供不同的厂商生产不同的零件，例如Intel厂商和Lenovo厂商
 //创建电脑类提供让电脑工作的函数，并且调用每个零件工作的接口，测试时组装三台不同的电脑进行工作
-#include<iostream>
-using namespace std;
-//CPU类
-class CPU
-{
-    public:
-        //抽象计算函数
-        virtual void calculate()=0;
-};
-//显卡类
-class VideoCard
-{
-    public:
-        //抽象显示函数
-        virtual void display()=0;
-};
-//内存条类
-class Memory
-{
-    public:
-        //抽象存储函数
-        virtual void storage()=0;
-};
+// #include<iostream>
+// using namespace std;
+// //CPU类
+// class CPU
+// {
+//     public:
+//         //抽象计算函数
+//         virtual void calculate()=0;
+// };
+// //显卡类
+// class VideoCard
+// {
+//     public:
+//         //抽象显示函数
+//         virtual void display()=0;
+// };
+// //内存条类
+// class Memory
+// {
+//     public:
+//         //抽象存储函数
+//         virtual void storage()=0;
+// };
 
-//电脑类
-class Computer
-{
-    public:
-        //构造函数中传入三个零件指针
-        Computer(CPU * cpu,VideoCard * vc,Memory * mem)
-        {
-            m_cpu=cpu;
-            m_vc=vc;
-            m_mem=mem;
-        }
-        //提供工作函数
-        void work()
-        {
-            m_cpu->calculate();
-            m_vc->display();
-            m_mem->storage();
-        }
-        //提供析构函数，释放三个电脑零件
-        ~Computer()
-        {
-            //释放CPU零件
-            if(m_cpu!=nullptr)
-            {
-                delete m_cpu;
-                m_cpu=nullptr;
-            }
-            //释放显卡零件
-            if(m_vc!=nullptr)
-            {
-                delete m_vc;
-                m_vc=nullptr;
-            }
-            //释放内存条零件
-            if(m_mem!=nullptr)
-            {
-                delete m_mem;
-                m_mem=nullptr;
-            }
-        }
-    private:
-        CPU * m_cpu;
-        VideoCard * m_vc;
-        Memory * m_mem;       
-};
+// //电脑类
+// class Computer
+// {
+//     public:
+//         //构造函数中传入三个零件指针
+//         Computer(CPU * cpu,VideoCard * vc,Memory * mem)
+//         {
+//             m_cpu=cpu;
+//             m_vc=vc;
+//             m_mem=mem;
+//         }
+//         //提供工作函数
+//         void work()
+//         {
+//             m_cpu->calculate();
+//             m_vc->display();
+//             m_mem->storage();
+//         }
+//         //提供析构函数，释放三个电脑零件
+//         ~Computer()
+//         {
+//             //释放CPU零件
+//             if(m_cpu!=nullptr)
+//             {
+//                 delete m_cpu;
+//                 m_cpu=nullptr;
+//             }
+//             //释放显卡零件
+//             if(m_vc!=nullptr)
+//             {
+//                 delete m_vc;
+//                 m_vc=nullptr;
+//             }
+//             //释放内存条零件
+//             if(m_mem!=nullptr)
+//             {
+//                 delete m_mem;
+//                 m_mem=nullptr;
+//             }
+//         }
+//     private:
+//         CPU * m_cpu;
+//         VideoCard * m_vc;
+//         Memory * m_mem;       
+// };
 
-//零件厂商Inter类
-class InterCpu:public CPU
-{
-    public:
-        void calculate()
-        {
-            cout<<"Inter的CPU开始计算了!"<<endl;
-        }
-};
-class InterVideoCard:public VideoCard
-{
-    public:
-        void display()
-        {
-            cout<<"Inter的显卡开始显示了!"<<endl;
-        }
-};
-class InterMemory:public Memory
-{
-    public:
-        void storage()
-        {
-            cout<<"Inter的内存条开始存储了"<<endl;
-        }
-};
+// //零件厂商Inter类
+// class InterCpu:public CPU
+// {
+//     public:
+//         void calculate()
+//         {
+//             cout<<"Inter的CPU开始计算了!"<<endl;
+//         }
+// };
+// class InterVideoCard:public VideoCard
+// {
+//     public:
+//         void display()
+//         {
+//             cout<<"Inter的显卡开始显示了!"<<endl;
+//         }
+// };
+// class InterMemory:public Memory
+// {
+//     public:
+//         void storage()
+//         {
+//             cout<<"Inter的内存条开始存储了"<<endl;
+//         }
+// };
 
-//零件厂商Lenovo类
-class LenovoCpu:public CPU
-{
-    public:
-        void calculate()
-        {
-            cout<<"Lenovo的CPU开始计算了!"<<endl;
-        }
-};
-class LenovoVideoCard:public VideoCard
-{
-    public:
-        void display()
-        {
-            cout<<"Lenovo的显卡开始显示了!"<<endl;
-        }
-};
-class LenovoMemory:public Memory
-{
-    public:
-        void storage()
-        {
-            cout<<"Lenovo的内存条开始存储了"<<endl;
-        }
-};
-//测试函数!!!!
-void test01()
-{
-    //第一台电脑零件
-    CPU * interCpu=new InterCpu;
-    VideoCard * interVideoCard=new InterVideoCard;
-    Memory * interMemory=new InterMemory;
+// //零件厂商Lenovo类
+// class LenovoCpu:public CPU
+// {
+//     public:
+//         void calculate()
+//         {
+//             cout<<"Lenovo的CPU开始计算了!"<<endl;
+//         }
+// };
+// class LenovoVideoCard:public VideoCard
+// {
+//     public:
+//         void display()
+//         {
+//             cout<<"Lenovo的显卡开始显示了!"<<endl;
+//         }
+// };
+// class LenovoMemory:public Memory
+// {
+//     public:
+//         void storage()
+//         {
+//             cout<<"Lenovo的内存条开始存储了"<<endl;
+//         }
+// };
+// //测试函数!!!!
+// void test01()
+// {
+//     //第一台电脑零件
+//     CPU * interCpu=new InterCpu;
+//     VideoCard * interVideoCard=new InterVideoCard;
+//     Memory * interMemory=new InterMemory;
 
-    //创建第一台电脑
-    cout<<"第一台电脑开始工作了!"<<endl;
-    Computer * computer1=new Computer(interCpu,interVideoCard,interMemory);
-    computer1->work();
-    delete computer1;
-    computer1=nullptr;
-    cout<<"******************************"<<endl;
+//     //创建第一台电脑
+//     cout<<"第一台电脑开始工作了!"<<endl;
+//     Computer * computer1=new Computer(interCpu,interVideoCard,interMemory);
+//     computer1->work();
+//     delete computer1;
+//     computer1=nullptr;
+//     cout<<"******************************"<<endl;
 
-    //第二台电脑零件
-    // CPU * lenovoCpu=new LenovoCpu;
-    // VideoCard * lenovoVideoCard=new LenovoVideoCard;
-    // Memory * lenovoMemory=new LenovoMemory;
+//     //第二台电脑零件
+//     // CPU * lenovoCpu=new LenovoCpu;
+//     // VideoCard * lenovoVideoCard=new LenovoVideoCard;
+//     // Memory * lenovoMemory=new LenovoMemory;
 
-    //创建第二台电脑
-    cout<<"第二台电脑开始工作了!"<<endl;
-    Computer * computer2=new Computer(new LenovoCpu,new LenovoVideoCard,new LenovoMemory);
-    computer2->work();
-    delete computer2;
-    computer2=nullptr;
-    cout<<"******************************"<<endl;
+//     //创建第二台电脑
+//     cout<<"第二台电脑开始工作了!"<<endl;
+//     Computer * computer2=new Computer(new LenovoCpu,new LenovoVideoCard,new LenovoMemory);
+//     computer2->work();
+//     delete computer2;
+//     computer2=nullptr;
+//     cout<<"******************************"<<endl;
 
-    //第三台电脑零件
-    // CPU * lenovoCpu=new LenovoCpu;
-    // VideoCard * interVideoCard=new InterVideoCard;
-    // Memory * lenovoMemory=new LenovoMemory;
+//     //第三台电脑零件
+//     // CPU * lenovoCpu=new LenovoCpu;
+//     // VideoCard * interVideoCard=new InterVideoCard;
+//     // Memory * lenovoMemory=new LenovoMemory;
 
-    //创建第三台电脑
-    cout<<"第三台电脑开始工作了!"<<endl;
-    Computer * computer3=new Computer(new InterCpu,new LenovoVideoCard,new InterMemory);
-    computer3->work();
-    delete computer3;
-    computer3=nullptr;
-    cout<<"******************************"<<endl;
-}
+//     //创建第三台电脑
+//     cout<<"第三台电脑开始工作了!"<<endl;
+//     Computer * computer3=new Computer(new InterCpu,new LenovoVideoCard,new InterMemory);
+//     computer3->work();
+//     delete computer3;
+//     computer3=nullptr;
+//     cout<<"******************************"<<endl;
+// }
 
-int main()
-{
-    test01();
 
-    system("pause");
-    return 0;
-}
+//文件操作
+//文本文件：以文本的ASCII码形式存储的文件
+//二进制文件：以文本的二进制形式存储的文件
+//操作文件的三大类：1、ofstream：写操作  2、ifstream：读操作  3、fstream：读写操作
+/*文件打开方式：
+    1、ios::in：打开文件，文件必须存在
+    2、ios::out：打开文件，文件不存在则创建，文件存在则清空
+    3、ios::ate：打开文件，文件存在则打开文件并移动到文件末尾
+    4、ios::app：追加方式打开文件，文件存在则打开文件并移动到文件末尾，文件不存在则创建文件
+    5、ios::trunc：打开文件，文件存在则清空文件，文件不存在则创建文件
+    注意：文件打开方式可以配合使用，利用|操作符，例如：用二进制方式写文件 ios::binary|ios::out
+*/
+/*写文件的步骤：
+    1.包含头文件  #include<fstream>；
+    2.创建流对象  #ofstream ofs；
+    3.打开文件  ofs.open("文件路径"，打开方式)；
+    4.写数据    ofs<<"写入的数据"；
+    5.关闭文件  ofs.close();
+*/
+/*文本文件--写文件*/
+// #include<iostream>
+// #include<fstream>
+// using namespace std;
+
+// void test01()
+// {
+//     //1.包含头文件
+//     //2.创建流对象
+//     ofstream ofs;
+//     //3.打开文件
+//     ofs.open("test_list.txt",ios::out);
+//     //4.写数据
+//     ofs<<"姓名：张三"<<endl;
+//     ofs<<"性别：男"<<endl;
+//     ofs<<"年龄: 18"<<endl;
+//     //5.关闭文件
+//     ofs.close();  
+// }
+
+// int main()
+// {
+//     test01();
+//     system("pause");
+//     return 0;
+// }
+
+
+/*读文件的步骤：
+    1.包含头文件  #include<fstream>；
+    2.创建流对象  #ifstream ifs；
+    3.打开文件  ifs.open("文件路径"，打开方式)；
+    4.写数据    ifs>>"写入的数据"；
+    5.关闭文件  ifs.close();
+*/
+/*文本文件--读文件*/
+// #include<iostream>
+// #include<fstream>
+// using namespace std;
+
+// void test01()
+// {
+//     //1.包含头文件
+//     //2.创建流对象
+//     ifstream ifs;
+//     //3.打开文件，判断文件是否打开成功
+//     ifs.open("test_list.txt",ios::in);
+//     if(!ifs.is_open())
+//     {
+//         cout<<"文件打开失败"<<endl;
+//         return;
+//     }
+//    // 4.读数据
+//     //第一种方式
+//     // cout<<"第一种方式读取文件"<<endl;
+//     // char buf[1024]={0};
+//     // while(ifs>>buf)
+//     // {
+//     //     cout<<buf<<endl;
+//     // }
+//     //第二种方式
+//     // cout<<"第二种方式读取文件"<<endl;
+//     // char buf2[1024]={0};
+//     // while(ifs.getline(buf2,sizeof(buf2)))
+//     // {
+//     //     cout<<buf2<<endl;
+//     // }
+//     //第三种方式
+//     // cout<<"第三种方式读取文件"<<endl;
+//     // string buf3;
+//     // while(getline(ifs,buf3))
+//     // {
+//     //     cout<<buf3<<endl;
+//     // }
+//     //第四种方式
+//     cout<<"第四种方式读取文件"<<endl;
+//     char c;
+//     while((c=ifs.get())!=EOF)
+//     {
+//         cout<<c;
+//     }
+//     //5.关闭文件
+//     ifs.close();
+// }
+// int main()
+// {
+//     test01();
+//     system("pause");
+//     return 0;
+// }
