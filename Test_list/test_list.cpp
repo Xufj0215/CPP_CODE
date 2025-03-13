@@ -1231,3 +1231,107 @@
 //     system("pause");
 //     return 0;
 // }
+
+
+//二进制文件--写文件
+// #include<iostream>
+// #include<fstream>
+// using namespace std;
+
+// class Person
+// {
+//     public:
+//         char m_name[64];
+//         int m_age;
+// };
+
+// void test01()
+// {
+//     //1.包含头文件
+//     //2.创建流对象
+//     ofstream ofs;
+//     //3.打开文件，判断文件是否打开成功
+//     ofs.open("person.txt",ios::out|ios::binary);
+//     if(!ofs.is_open())
+//     {
+//         cout<<"文件打开失败"<<endl;
+//         return;
+//     }
+//     //4.写数据
+//     Person P={"张三",18};
+//     ofs.write((const char *)&P,sizeof(Person));
+//     //5.关闭文件
+// }
+
+// int main()
+// {
+//     test01();
+//     system("pause");
+//     return 0;
+//}
+
+
+//二进制文件--读文件
+// #include<iostream>
+// #include<fstream>
+// using namespace std;
+// const int LEN=64;
+
+// class Person
+// {
+//     public:
+//         char m_name[LEN];
+//         int m_age;
+// }P;
+
+// void test01()
+// {
+//     //1.包含头文件
+//     //2.创建流对象
+//     ifstream ifs;
+//     //3.打开文件，判断文件是否打开成功
+//     ifs.open("person.txt",ios::in|ios::binary);
+//     if(!ifs.is_open())
+//     {
+//         cout<<"二进制文件打开失败！"<<endl;
+//         return;
+//     }
+//     //4.读文件
+//     ifs.read((char *)&P,sizeof(P));
+//     cout<<"姓名："<<P.m_name<<"\n年龄: "<<P.m_age<<endl;
+//     //5，关闭文件
+//     ifs.close();
+// }
+
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+/*职工管理系统--用来管理公司内所有员工的信息*/
+//公司中职工分为三类：普通员工、经理、老板。显示信息时，需要显示职工编号、职工姓名、职工岗位以及职责
+//普通员工职责：完成经理交给的任务
+//经理职责：完成老板交给的任务，并下发任务给员工
+//老板职责：管理公司所有事务
+/*管理系统中需要实现的功能如下：
+1.退出管理系统：退出当前管理系统；
+2.增加职工信息：实现批量添加职工功能，将信息录入到文件中，职工信息为：职工编号、姓名、部门编号；
+3.显示职工信息：显示公司内所有职工的信息；
+4.删除离职职工：按照编号删除指定的职工；
+5.修改职工信息：按照编号修改指定职工的信息；
+6.查找职工信息：按照职工的编号或职工的姓名进行查找相关的人员信息；
+7.按照编号排序：按照职工编号进行排序，或排序规则由用户指定；
+8.清空所有文档：清空文件中记录的所有职工信息（清空前需要再次确认，防止误删）；*/
+#include<iostream>
+using namespace std;
+
+int main()
+{
+
+    system("pause");
+    return 0;
+}
