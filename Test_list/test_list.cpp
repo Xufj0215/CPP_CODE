@@ -1326,11 +1326,59 @@
 6.查找职工信息：按照职工的编号或职工的姓名进行查找相关的人员信息；
 7.按照编号排序：按照职工编号进行排序，或排序规则由用户指定；
 8.清空所有文档：清空文件中记录的所有职工信息（清空前需要再次确认，防止误删）；*/
-#include<iostream>
+//#include<iostream>
+#include"workManger.h"
 using namespace std;
 
 int main()
 {
+    //测试多态
+    // Worker * worker=NULL;
+    // worker=new Employee(1,"张三",1);
+    // worker->showInfo();
+
+    workManager wm;
+    wm.showMenu();
+    int choice=0;
+    cout<<"请输入您的选择："<<endl;
+    cin>>choice;
+    while(true)
+    {
+        switch(choice)
+        {
+            case 0://退出系统
+                wm.exitSystem();
+                break;
+            case 1://增加职工
+                wm.addEmp();
+                break;
+            case 2://显示职工
+                
+                break;
+            case 3://删除职工
+
+                break;
+            case 4://修改职工
+
+                break;
+            case 5://查找职工
+
+                break;
+            case 6://按照编号排序
+
+                break;
+            case 7://清空所有文档
+
+                break;
+            default:
+                cout<<"输入有误，请重新输入！"<<endl;
+                break;
+        }
+        cout<<"请输入您的选择："<<endl;
+        cin>>choice;    
+    }
+
+    
 
     system("pause");
     return 0;
