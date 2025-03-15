@@ -41,7 +41,7 @@ workManager::workManager()
     }
     //3.文件存在且记录数据
     int num=this->getEmpNum();
-    cout<<"职工人数为："<<num<<endl;
+    //cout<<"职工人数为："<<num<<endl;
     this->m_EmpNum=num;
     //开辟空间
     this->worker=new Worker*[this->m_EmpNum];
@@ -49,20 +49,20 @@ workManager::workManager()
     this->initEmp();
     //文件不为空
     this->fileIsEmpty=false;
-    cout<<"职工信息读取成功"<<endl;
-    for(int i=0;i<this->m_EmpNum;i++)
-    {
-        cout<<"职工编号："<<this->worker[i]->m_Id
-            <<"\t职工姓名:"<<this->worker[i]->m_Name
-            <<"\t岗位:"<<this->worker[i]->getDeptId()
-            <<"\t岗位职责:"<<this->worker[i]->getDeptId()<<endl;
-    }
+    //cout<<"职工信息读取成功"<<endl;
+    // for(int i=0;i<this->m_EmpNum;i++)
+    // {
+    //     cout<<"职工编号："<<this->worker[i]->m_Id
+    //         <<"\t职工姓名:"<<this->worker[i]->m_Name
+    //         <<"\t岗位:"<<this->worker[i]->getDeptId()
+    //         <<"\t岗位职责:"<<this->worker[i]->getDeptId()<<endl;
+    // }
     //关闭文件
     ifs.close();
 }
 
 //获取文件中的职工人数
-int getEmpNum()
+int workManager::getEmpNum()
 {
     ifstream ifs;
     ifs.open(FILENAME,ios::in);
@@ -282,6 +282,9 @@ void workManager::addEmp()
         cout<<"成功添加"<<addNum<<"名新职工"<<endl;
         //保存数据到文件
         this->save();
+
+        system("pause");
+        system("cls");
     }
     else
     {
@@ -303,5 +306,255 @@ void workManager::showEmp()
             this->worker[i]->showInfo();
         }
     }
+    system("pause");
+    system("cls");
 }
+
+//判断职工是否存在
+int workManager::isExist(int id)
+{
+    if(this->fileIsEmpty==true)
+    {
+        return -1;
+    }
+    else
+    {
+        for(int i=0;i<this->m_EmpNum;i++)
+        {
+            if(this->worker[i]->m_Id==id)
+            {
+                return i;
+            }
+        }
+    }
+    return -1;
+}
+//删除职工
+void workManager::delEmp()
+{
+    if(this->fileIsEmpty==true)
+    {
+        cout<<"文件不存在或记录为空"<<endl;
+    }
+    else
+    {
+        cout<<"请输入想要删除的职工编号："<<endl;
+        int id=0;
+        cin>>id;
+        int index=this->isExist(id);
+        if(index!=-1)
+        {
+            for(int i=index;i<this->m_EmpNum-1;i++)
+            {
+                this->worker[i]=this->worker[i+1];
+            }
+            this->m_EmpNum--;
+            this->save();
+            cout<<"删除成功"<<endl;
+        }
+        else
+        {
+            cout<<"删除失败，未找到该职工"<<endl;
+        }
+    }
+    system("pause");
+    system("cls");
+}
+
+//修改职工
+void workManager::modEmp()
+{
+    if(this->fileIsEmpty==true)
+    {
+        cout<<"文件不存在或记录为空"<<endl;
+    }
+    else
+    {
+        cout<<"请输入想要修改的职工编号："<<endl;
+        int id=0;
+        cin>>id;
+        int index=this->isExist(id);
+        if(index!=-1)
+        {
+            delete this->worker[index];
+            int newId=0;
+            string newName="";
+            int dSelect=0;
+            cout<<"查到："<<id<<"号职工，请输入新职工编号："<<endl;
+            cin>>newId;
+            cout<<"请输入新姓名："<<endl;
+            cin>>newName;
+            cout<<"请选择岗位："<<endl;
+            cout<<"1、普通员工"<<endl;
+            cout<<"2、经理"<<endl;
+            cout<<"3、老板"<<endl;
+            cin>>dSelect;
+            Worker * worker=NULL;
+            switch(dSelect)
+            {
+                case 1:
+                    worker=new Employee(newId,newName,1);
+                    break;
+                case 2:
+                    worker=new Manager(newId,newName,2);
+                    break;
+                case 3:
+                    worker=new Boss(newId,newName,3);
+                    break;
+                default:
+                    break;
+            }
+            this->worker[index]=worker;
+            cout<<"修改成功"<<endl;
+            this->save();
+        }
+        else
+        {
+            cout<<"修改失败，未找到该职工"<<endl;
+        }
+    }
+    system("pause");
+    system("cls");
+}
+
+//查找职工
+void workManager::findEmp()
+{
+    if(this->fileIsEmpty==true)
+    {
+        cout<<"文件不存在或记录为空"<<endl;
+    }
+    else
+    {
+        cout<<"请输入查找的方式："<<endl;
+        cout<<"1、按照职工编号查找"<<endl;
+        cout<<"2、按照职工姓名查找"<<endl;
+        int select=0;
+        cin>>select;
+        if(select==1)
+        {
+            int id=0;
+            cout<<"请输入查找的职工编号："<<endl;
+            cin>>id;
+            int index=this->isExist(id);
+            if(index!=-1)
+            {
+                this->worker[index]->showInfo();
+            }
+            else
+            {
+                cout<<"未找到该职工"<<endl;
+            }
+        }
+        else if(select==2)
+        {
+            string name="";
+            cout<<"请输入查找的职工姓名："<<endl;
+            cin>>name;
+            bool flag=false;
+            for(int i=0;i<this->m_EmpNum;i++)
+            {
+                if(this->worker[i]->m_Name==name)
+                {
+                    this->worker[i]->showInfo();
+                    flag=true;
+                }
+            }
+            if(flag==false)
+            {
+                cout<<"未找到该职工"<<endl;
+            }
+        }
+        else
+        {
+            cout<<"输入有误"<<endl;
+        }
+    }
+    system("pause");
+    system("cls");
+}
+
+//按照编号排序
+void workManager::sortEmp()
+{
+    if(this->fileIsEmpty==true)
+    {
+        cout<<"文件不存在或记录为空"<<endl;
+    }
+    else
+    {
+        cout<<"请选择排序方式："<<endl;
+        cout<<"1、升序"<<endl;
+        cout<<"2、降序"<<endl;
+        int select=0;
+        cin>>select;
+        for(int i=0;i<this->m_EmpNum;i++)
+        {
+            int minOrMax=i;
+            for(int j=i+1;j<this->m_EmpNum;j++)
+            {
+                if(select==1)
+                {
+                    if(this->worker[minOrMax]->m_Id>this->worker[j]->m_Id)
+                    {
+                        minOrMax=j;
+                    }
+                }
+                else
+                {
+                    if(this->worker[minOrMax]->m_Id<this->worker[j]->m_Id)
+                    {
+                        minOrMax=j;
+                    }
+                }
+            }
+            if(i!=minOrMax)
+            {
+                Worker * temp=this->worker[i];
+                this->worker[i]=this->worker[minOrMax];
+                this->worker[minOrMax]=temp;
+            }
+        }
+        cout<<"排序成功"<<endl;
+        this->save();
+        this->showEmp();
+    }
+    //system("pause");
+    //system("cls");
+}
+
+//清空所有文档
+void workManager::cleanFile()
+{
+    cout<<"确认清空？"<<endl;
+    cout<<"1、确认"<<endl;
+    cout<<"2、返回"<<endl;
+    int select=0;
+    cin>>select;
+    if(select==1)
+    {
+        ofstream ofs(FILENAME,ios::trunc);
+        ofs.close();
+        if(this->worker!=NULL)
+        {
+            for(int i=0;i<this->m_EmpNum;i++)
+            {
+                if(this->worker[i]!=NULL)
+                {
+                    delete this->worker[i];
+                    this->worker[i]=NULL;
+                }
+            }
+            this->m_EmpNum=0;
+            delete[] this->worker;
+            this->worker=NULL;
+            this->fileIsEmpty=true;
+        }
+        cout<<"清空成功"<<endl;
+    }
+    system("pause");
+    system("cls");
+}
+
+
 

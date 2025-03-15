@@ -57,6 +57,23 @@ class workManager
         //显示职工
         void showEmp();
 
+        //判断职工是否存在
+        int isExist(int id);
+        //删除职工
+        void delEmp();
+
+        //修改职工
+        void modEmp();
+
+        //查找职工
+        void findEmp();
+
+        //按照编号排序
+        void sortEmp();
+
+        //清空所有文档
+        void cleanFile();
+
         //析构函数
         ~workManager();
 

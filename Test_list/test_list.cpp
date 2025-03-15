@@ -1332,11 +1332,6 @@ using namespace std;
 
 int main()
 {
-    //测试多态
-    // Worker * worker=NULL;
-    // worker=new Employee(1,"张三",1);
-    // worker->showInfo();
-
     workManager wm;
     wm.showMenu();
     int choice=0;
@@ -1356,24 +1351,25 @@ int main()
                 wm.showEmp();
                 break;
             case 3://删除职工
-
+                wm.delEmp();
                 break;
             case 4://修改职工
-
+                wm.modEmp();
                 break;
             case 5://查找职工
-
+                wm.findEmp();
                 break;
             case 6://按照编号排序
-
+                wm.sortEmp();
                 break;
             case 7://清空所有文档
-
+                wm.cleanFile();
                 break;
             default:
                 cout<<"输入有误，请重新输入！"<<endl;
                 break;
         }
+        wm.showMenu();
         cout<<"请输入您的选择："<<endl;
         cin>>choice;    
     }
