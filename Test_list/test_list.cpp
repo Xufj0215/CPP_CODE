@@ -1353,7 +1353,7 @@ int main()
                 wm.addEmp();
                 break;
             case 2://显示职工
-                
+                wm.showEmp();
                 break;
             case 3://删除职工
 
@@ -1377,8 +1377,6 @@ int main()
         cout<<"请输入您的选择："<<endl;
         cin>>choice;    
     }
-
-    
 
     system("pause");
     return 0;

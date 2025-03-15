@@ -3,7 +3,7 @@
 #include"workManger.h"
 using namespace std;
 
-//构造函数
+//职工管理类构造函数
 workManager::workManager()
 {
     //1.文件不存在
@@ -288,3 +288,20 @@ void workManager::addEmp()
         cout<<"输入数据有误"<<endl;
     }
 }
+
+//显示职工
+void workManager::showEmp()
+{
+    if(this->fileIsEmpty==true)
+    {
+        cout<<"文件不存在或记录为空"<<endl; 
+    }
+    else
+    {
+        for(int i=0;i<this->m_EmpNum;i++)
+        {
+            this->worker[i]->showInfo();
+        }
+    }
+}
+

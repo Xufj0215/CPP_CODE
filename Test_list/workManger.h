@@ -30,6 +30,8 @@ class workManager
         int m_EmpNum;
         //职工数组指针
         Worker ** worker;
+        //判断文件是否为空
+        bool fileIsEmpty;
 
         //构造函数
         workManager();
@@ -46,14 +48,14 @@ class workManager
         //保存文件
         void save();
 
-        //判断文件是否为空
-        bool fileIsEmpty;
-
         //获取文件中的职工人数
         int getEmpNum();
 
         //初始化职工
         void initEmp();
+
+        //显示职工
+        void showEmp();
 
         //析构函数
         ~workManager();
