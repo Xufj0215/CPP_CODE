@@ -1655,20 +1655,22 @@
 //         T1 m_Name;
 //         T2 m_Age;
 // };
-// void showPerson1(Person<string,int> &p)
+//
+// void showPerson1(Person<string,int> &p)//指定传入的类型--直接显示对象的数据类型
 // {
 //     cout<<"姓名："<<p.m_Name<<"  年龄："<<p.m_Age<<endl;
 // }
 // template<class T1,class T2>
-// void showPerson2(Person<T1,T2> &p)
+// void showPerson2(Person<T1,T2> &p)//参数模板化--将对象中的参数变为模板进行传递
 // {
 //     cout<<"姓名："<<p.m_Name<<"  年龄："<<p.m_Age<<endl;
 // }
 // template<class T>
-// void showPerson2(T &p)
+// void showPerson3(T &p)//整个类模板化--将这个对象类型模板化进行传递
 // {
 //     cout<<"姓名："<<p.m_Name<<"  年龄："<<p.m_Age<<endl;
 // }
+//
 // void test01()
 // {
 //     Person<string,int>p1("孙悟空",100);
@@ -1677,13 +1679,14 @@
 // void test02()
 // {
 //     Person<string,int>p2("猪八戒",120);
-//     showPerson1(p2);//指定传入的类型--直接显示对象的数据类型
+//     showPerson2(p2);//指定传入的类型--直接显示对象的数据类型
 // }
 // void test03()
 // {
 //     Person<string,int>p3("唐僧",40);
-//     showPerson2(p3);//参数模板化--将对象中的参数变为模板进行传递
+//     showPerson3(p3);//参数模板化--将对象中的参数变为模板进行传递
 // }
+//
 // int main()
 // {
 //     test01();
@@ -1743,3 +1746,161 @@
 //     system("pause");
 //     return 0;
 // }
+
+
+// /*类模板成员函数类外实现*/
+// #include<iostream>
+// #include<string>
+// using namespace std;
+
+// template<class T1,class T2>
+// class Person
+// {
+//     public:
+//         Person(T1 name,T2 age);
+//         void showPerson();
+//     private:
+//         T1 m_Name;
+//         T2 m_Age;
+// };
+// //类模板构造函数类外实现
+// template<class T1,class T2>
+// Person<T1,T2>::Person(T1 name,T2 age)
+// {
+//     this->m_Age=age;
+//     this->m_Name=name;
+// }
+// //类模板成员函数类外实现
+// template<class T1,class T2>
+// void Person<T1,T2>::showPerson()
+// {
+//     cout<<"姓名："<<this->m_Name<<" 年龄："<<this->m_Age<<endl;
+// }
+
+// int main()
+// {
+//     Person<string,int> p1("张三",18);
+//     Person<string,int> p2("李四",20);
+//     p1.showPerson();
+//     p2.showPerson();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+/*类模板分文件编写问题及解决*/
+//类模板中成员函数创建时期是在调用阶段，导致分文件编写时链接不到
+//解决方法1：直接包含.cpp源文件
+//解决方法2：将声明和实现写到同一个文件中，并更改后缀名为.hpp，hpp是约定的名称，并不是强制
+// #include"person.hpp"
+// // #include<iostream>
+// // #include<string>
+// // using namespace std;
+// // template<class T1,class T2>
+// // class Person
+// // {
+// //     public:
+// //         Person(T1 name,T2 age);
+// //         void showPerson();
+// //     private:
+// //         T1 m_Name;
+// //         T2 m_Age;
+// // };
+// // //类模板构造函数类外实现
+// // template<class T1,class T2>
+// // Person<T1,T2>::Person(T1 name,T2 age)
+// // {
+// //     this->m_Age=age;
+// //     this->m_Name=name;
+// // }
+// // //类模板成员函数类外实现
+// // template<class T1,class T2>
+// // void Person<T1,T2>::showPerson()
+// // {
+// //     cout<<"姓名："<<this->m_Name<<" 年龄："<<this->m_Age<<endl;
+// // }
+
+// int main()
+// {
+//     Person<string,int> p1("张三",18);
+//     p1.showPerson();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*类模板与友元*/
+// //全局函数类内实现--直接在类内声明即可
+// //全局函数类外实现--需要提前让编译器知道全局函数的存在，使用关键字friend声明友元函数
+// #include<iostream>
+// #include<string>
+// using namespace std;
+
+// //提前让编译器知道Person类的存在
+// template<class T1,class T2>
+// class Person;
+
+// //全局函数类外实现
+// template<class T1,class T2>
+// void showPerson2(Person<T1,T2> &p)
+// {
+//     cout<<"全局函数类外实现："<<endl;
+//     cout<<"姓名："<<p.m_Name<<" 年龄："<<p.m_Age<<endl;
+// }
+
+// template<class T1,class T2>
+// class Person
+// {
+//     //1.全局函数类外实现--需要提前让编译器知道全局函数的存在，使用关键字friend声明友元函数
+//     friend void showPerson(Person<T1,T2> &p)
+//     {
+//         cout<<"全局函数类内实现："<<endl;
+//         cout<<"姓名："<<p.m_Name<<" 年龄："<<p.m_Age<<endl;
+//     }
+//     //2.全局函数类外实现--需要提前让编译器知道全局函数的存在，使用关键字friend声明友元函数
+//     friend void showPerson2<>(Person<T1,T2> &p);
+
+//     public:
+//         Person(T1 name,T2 age)
+//         {
+//             this->m_Name=name;
+//             this->m_Age=age;
+//         }
+//     private:
+//         T1 m_Name;
+//         T2 m_Age;
+// };
+
+// int main()
+// {
+//     Person<string,int> p1("张三",18);
+//     Person<string,int> p2("李四",20);
+//     showPerson(p1);//全局函数类内实现--直接在类内声明即可
+//     showPerson2(p2);//全局函数类外实现--需要提前让编译器知道全局函数的存在，使用关键字friend声明友元函数
+
+//     system("pause");
+//     return 0;
+// }
+
+
+/*类模板相关案例--实现一个通用的数组类，要求如下：
+    1.可以对内置数据类型以及自定义数据类型的数据进行存储
+    2.将数组中的数据存储到堆区
+    3.构造函数中可以传入数组的容量
+    4.提供对应的拷贝构造函数以及Operator=防止浅拷贝问题
+    5.提供尾插法和尾删法对数组中的数据进行增加和删除
+    6.可以通过下标的方法访问数组中的元素
+    7.可以获取数组中当前元素数量和数组的容量
+*/
+#include<iostream>
+#include<string>
+using namespace std;
+
+int main()
+{
+
+    system("pause");
+    return 0;
+}
