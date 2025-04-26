@@ -1312,68 +1312,434 @@
 // }
 
 
-/*职工管理系统--用来管理公司内所有员工的信息*/
-//公司中职工分为三类：普通员工、经理、老板。显示信息时，需要显示职工编号、职工姓名、职工岗位以及职责
-//普通员工职责：完成经理交给的任务
-//经理职责：完成老板交给的任务，并下发任务给员工
-//老板职责：管理公司所有事务
-/*管理系统中需要实现的功能如下：
-1.退出管理系统：退出当前管理系统；
-2.增加职工信息：实现批量添加职工功能，将信息录入到文件中，职工信息为：职工编号、姓名、部门编号；
-3.显示职工信息：显示公司内所有职工的信息；
-4.删除离职职工：按照编号删除指定的职工；
-5.修改职工信息：按照编号修改指定职工的信息；
-6.查找职工信息：按照职工的编号或职工的姓名进行查找相关的人员信息；
-7.按照编号排序：按照职工编号进行排序，或排序规则由用户指定；
-8.清空所有文档：清空文件中记录的所有职工信息（清空前需要再次确认，防止误删）；*/
-//#include<iostream>
-#include"workManger.h"
-using namespace std;
+// /*职工管理系统--用来管理公司内所有员工的信息*/
+// //公司中职工分为三类：普通员工、经理、老板。显示信息时，需要显示职工编号、职工姓名、职工岗位以及职责
+// //普通员工职责：完成经理交给的任务
+// //经理职责：完成老板交给的任务，并下发任务给员工
+// //老板职责：管理公司所有事务
+// /*管理系统中需要实现的功能如下：
+// 1.退出管理系统：退出当前管理系统；
+// 2.增加职工信息：实现批量添加职工功能，将信息录入到文件中，职工信息为：职工编号、姓名、部门编号；
+// 3.显示职工信息：显示公司内所有职工的信息；
+// 4.删除离职职工：按照编号删除指定的职工；
+// 5.修改职工信息：按照编号修改指定职工的信息；
+// 6.查找职工信息：按照职工的编号或职工的姓名进行查找相关的人员信息；
+// 7.按照编号排序：按照职工编号进行排序，或排序规则由用户指定；
+// 8.清空所有文档：清空文件中记录的所有职工信息（清空前需要再次确认，防止误删）；*/
+// //#include<iostream>
+// #include"workManger.h"
+// using namespace std;
 
-int main()
-{
-    workManager wm;
-    wm.showMenu();
-    int choice=0;
-    cout<<"请输入您的选择："<<endl;
-    cin>>choice;
-    while(true)
-    {
-        switch(choice)
-        {
-            case 0://退出系统
-                wm.exitSystem();
-                break;
-            case 1://增加职工
-                wm.addEmp();
-                break;
-            case 2://显示职工
-                wm.showEmp();
-                break;
-            case 3://删除职工
-                wm.delEmp();
-                break;
-            case 4://修改职工
-                wm.modEmp();
-                break;
-            case 5://查找职工
-                wm.findEmp();
-                break;
-            case 6://按照编号排序
-                wm.sortEmp();
-                break;
-            case 7://清空所有文档
-                wm.cleanFile();
-                break;
-            default:
-                cout<<"输入有误，请重新输入！"<<endl;
-                break;
-        }
-        wm.showMenu();
-        cout<<"请输入您的选择："<<endl;
-        cin>>choice;    
-    }
+// int main()
+// {
+//     workManager wm;
+//     wm.showMenu();
+//     int choice=0;
+//     cout<<"请输入您的选择："<<endl;
+//     cin>>choice;
+//     while(true)
+//     {
+//         switch(choice)
+//         {
+//             case 0://退出系统
+//                 wm.exitSystem();
+//                 break;
+//             case 1://增加职工
+//                 wm.addEmp();
+//                 break;
+//             case 2://显示职工
+//                 wm.showEmp();
+//                 break;
+//             case 3://删除职工
+//                 wm.delEmp();
+//                 break;
+//             case 4://修改职工
+//                 wm.modEmp();
+//                 break;
+//             case 5://查找职工
+//                 wm.findEmp();
+//                 break;
+//             case 6://按照编号排序
+//                 wm.sortEmp();
+//                 break;
+//             case 7://清空所有文档
+//                 wm.cleanFile();
+//                 break;
+//             default:
+//                 cout<<"输入有误，请重新输入！"<<endl;
+//                 break;
+//         }
+//         wm.showMenu();
+//         cout<<"请输入您的选择："<<endl;
+//         cin>>choice;    
+//     }
 
-    system("pause");
-    return 0;
-}
+//     system("pause");
+//     return 0;
+// }
+
+
+/*普通函数和函数模板的调用规则*/
+/*调用规则如下：
+1.如果普通函数和函数模板都可以实现，优先调用普通函数
+2.可以通过空模板参数列表来强制调用函数模板
+3.函数模板也可以发生重载
+4.如果函数模板可以产生更好的匹配，优先调用函数模板*/
+// #include<iostream>
+// using namespace std;
+
+// void func(int a,int b)
+// {
+//     cout<<"普通函数的调用"<<endl;
+// }
+// template<typename T>
+// void func(T a,T b)
+// {
+//     cout<<"函数模板的调用"<<endl;
+// }
+// template<typename T>
+// void func(T a,T b,T c)
+// {
+//     cout<<"函数模板的重载调用"<<endl;
+// }
+
+// int main()
+// {
+//     int a=10;
+//     int b=20;
+//     int c=30;
+//     char d='A';
+//     char e='B';
+//     func(a,b);//如果普通函数和函数模板都可以实现，优先调用普通函数
+//     func<>(a,b);//可以通过空模板参数列表来强制调用函数模板
+//     func<>(a,b,c);//函数模板也可以发生重载
+//     func(d,e);//如果函数模板可以产生更好的匹配，优先调用函数模板
+
+//     system("pause");
+//     return 0;
+// }
+
+
+/*模板的局限性*/
+//模板的局限性：1、不能使用sizeof()  2、不能使用类型特性  3、不能使用sizeof...(参数包)  4、不能使用类型转换
+//5、不能使用sizeof(类名::成员)  6、不能使用sizeof(类名::静态成员)  7、不能使用sizeof(类名::函数指针)
+//8、不能使用sizeof(类名::函数对象)  9、不能使用sizeof(类名::函数模板)  10、不能使用sizeof(类名::函数指针模板)
+//11、不能使用sizeof(类名::函数对象模板)  12、不能使用sizeof(类名::函数指针模板)  13、不能使用sizeof(类名::函数对象模板)
+//14、不能使用sizeof(类名::函数指针模板)  15、不能使用sizeof(类名::函数对象模板)  16、不能使用sizeof(类名::函数指针模板)
+//17、不能使用sizeof(类名::函数对象模板)  18、不能使用sizeof(类名::函数指针模板)  19、不能使用sizeof(类名::函数对象模板)
+//20、不能使用sizeof(类名::函数指针模板)  21、不能使用sizeof(类名::函数对象模板)  22、不能使用sizeof(类名::函数指针模板)
+//23、不能使用sizeof(类名::函数对象模板)  24、不能使用sizeof(类名::函数指针模板)  25、不能使用sizeof(类名::函数对象模板) 
+//26、不能使用sizeof(类名::函数指针模板)  
+//27、不能使用sizeof(类名::函数对象模板)  
+//28、不能使用sizeof(类名::函数指针模板)  
+//29、不能使用sizeof(类名::函数对象模板)  
+//
+// #include<iostream>
+// #include<string>
+// using namespace std;
+// class Person
+// {
+//     public:
+//         Person(string name,int age)
+//         {
+//             m_name=name;
+//             m_age=age;
+//         }
+//         string m_name;
+//         int m_age;
+
+//         // // Overload the equality operator
+//         // bool operator==(const Person& other) const
+//         // {
+//         //     return m_name == other.m_name && m_age == other.m_age;
+//         // }
+// };
+// template<class T>
+// bool compare(T &a,T &b)
+// {
+//     if(a==b)
+//         return true;
+//     else
+//         return false;
+// }
+// //函数模板的特化
+// template<> bool compare( Person &p1,  Person &p2)
+// {
+//     if(p1.m_name == p2.m_name && p1.m_age == p2.m_age)
+//         return true;
+//     else
+//         return false;
+// }
+// void test01()
+// {
+//     int a=10;
+//     int b=20;
+//     bool ret=compare(a,b);
+//     if(ret)
+//         cout<<"相等"<<endl;
+//     else
+//         cout<<"不相等"<<endl;
+// }
+// void test02()
+// {
+//     Person p1("Tom",10);
+//     Person p2("Tom",10);
+//     bool ret=compare(p1,p2);
+//     if(ret)
+//         cout<<"相等"<<endl;
+//     else
+//         cout<<"不相等"<<endl;
+
+// }
+// int main()
+// {
+//     //test01();
+//     test02();
+
+//     system("pause");
+//     return 0;
+// }
+
+/*类模板*/
+//类模板的定义：template<typename T> class 类名{...}
+// #include<iostream>
+// #include<string>
+// using namespace std;
+// template<class T1,class T2>
+// class Person
+// {
+//     public:
+//         Person(T1 name,T2 age)
+//         {
+//             m_name=name;
+//             m_age=age;  
+//         }
+//         void showPerson()
+//         {
+//             cout<<"姓名："<<m_name<<"  年龄："<<m_age<<endl;
+//         }
+//     private:
+//         T1 m_name;
+//         T2 m_age;
+// };
+
+// int main()
+// {
+//     //创建类模板对象
+//     Person<string,int> p1("Tom",18);
+//     Person<string,int> p2("Jerry",20);
+//     p1.showPerson();
+//     p2.showPerson();
+
+//     system("pause");
+//     return 0;
+// }
+
+/*类模板与函数模板的区别：
+    1.类模板没有自动类型推导使用方式
+    2.类模板在模板参数列表中可以使用默认参数*/
+// 类模板是一个类的定义，而函数模板是一个函数的定义；
+// 类模板可以有多个类型参数，而函数模板只能有一个类型参数；
+// 类模板可以有多个成员函数，而函数模板只能有一个函数；
+// 类模板可以有多个成员变量，而函数模板只能有一个参数；
+// #include<iostream>
+// using namespace std;
+// #include<string>
+
+// template<class NameType,class AgeType=int>
+// class Person
+// {
+//     public:
+//         Person(NameType name,AgeType age)
+//         {
+//             this->m_name=name;
+//             this->m_age=age;  
+//         }
+//         void showPerson()
+//         {
+//             cout<<"姓名："<<this->m_name<<"  年龄："<<this->m_age<<endl;
+//         }
+//     private:
+//         NameType m_name;
+//         AgeType m_age;
+// };
+
+// int main()
+// {
+//     //创建类模板对象
+//     //Person p3("张三",18);//类模板没有自动类型推导使用方式
+//     Person<string,int> p1("孙悟空",1000);
+//     Person<string> p2("猪八戒",1200);//类模板在模板参数列表中可以使用默认参数
+//     p1.showPerson();
+//     p2.showPerson();
+
+//      system("pause");
+//      return 0;
+// }
+
+
+// /*类模板中成员函数的创建时机*/
+// //类模板中成员函数和普通类中成员函数创建时机是有区别的：
+// //1.普通类中成员函数创建时机：一开始就可以创建
+// //2.类模板中成员函数创建时机：在调用时才创建
+// #include<iostream>
+// using namespace std;
+// class Person1
+// {
+//     public:
+//         void ShowPerson1()
+//         {
+//             cout<<"Person1函数调用"<<endl;
+//         }
+// };
+// class Person2
+// {
+//     public:
+//         void ShowPerson2()
+//         {
+//             cout<<"Person2函数调用"<<endl;
+//         }
+// };
+// template<class T>
+// class Person
+// {
+//     public:
+//         void func1()
+//         {
+//             per.ShowPerson1();
+//         }
+//         void func2()
+//         {
+//             per.ShowPerson2();
+//         }
+//     private:
+//         T per;
+// };
+
+// int main()
+// {
+//     Person1 p1;
+//     Person2 p2;
+//     p1.ShowPerson1();
+//     p2.ShowPerson2();
+//     Person<Person1> p3;//类模板中成员函数创建时机：在调用时才创建
+//     p3.func1();//调用时才创建
+//     //p3.func2();//编译错误，类模板中成员函数创建时机：在调用时才创建
+//     Person<Person2> p4;//类模板中成员函数创建时机：在调用时才创建
+//     p4.func2();//调用时才创建
+//     //p4.func1();//编译错误，类模板中成员函数创建时机：在调用时才创建
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*类模板参数作函数对象*/
+// //类模板实例化出的对象向函数传参的方式：
+// //1.指定传入的类型--直接显示对象的数据类型
+// //2.参数模板化--将对象中的参数变为模板进行传递
+// //3.整个类模板化--将这个对象类型模板化进行传递
+// #include<iostream>
+// using namespace std;
+// #include<string>
+
+// template<class T1,class T2>
+// class Person
+// {
+//     public:
+//         Person(T1 name,T2 age)
+//         {
+//             this->m_Name=name;
+//             this->m_Age=age;
+//         }
+//         T1 m_Name;
+//         T2 m_Age;
+// };
+// void showPerson1(Person<string,int> &p)
+// {
+//     cout<<"姓名："<<p.m_Name<<"  年龄："<<p.m_Age<<endl;
+// }
+// template<class T1,class T2>
+// void showPerson2(Person<T1,T2> &p)
+// {
+//     cout<<"姓名："<<p.m_Name<<"  年龄："<<p.m_Age<<endl;
+// }
+// template<class T>
+// void showPerson2(T &p)
+// {
+//     cout<<"姓名："<<p.m_Name<<"  年龄："<<p.m_Age<<endl;
+// }
+// void test01()
+// {
+//     Person<string,int>p1("孙悟空",100);
+//     showPerson1(p1);//指定传入的类型--直接显示对象的数据类型
+// }
+// void test02()
+// {
+//     Person<string,int>p2("猪八戒",120);
+//     showPerson1(p2);//指定传入的类型--直接显示对象的数据类型
+// }
+// void test03()
+// {
+//     Person<string,int>p3("唐僧",40);
+//     showPerson2(p3);//参数模板化--将对象中的参数变为模板进行传递
+// }
+// int main()
+// {
+//     test01();
+//     test02();
+//     test03();
+    
+//     system("pause");
+//     return 0;
+// }
+
+
+/*类模板与继承*/
+//当类模板碰到继承时，需要注意以下几点：
+//1.当子类继承的父类是一个类模板时，子类在声明时必须指定父类的模板参数类型，否则编译器无法给子类分配内存；
+//2.如果想灵活指定出父类中的数据类型，子类也需要变为类模板；
+// #include<iostream>
+// using namespace std;
+
+// template<class T>
+// class Base
+// {
+//     public:
+//         Base()
+//         {
+//             cout<<"Base构造函数调用"<<endl;
+//         }
+//     T m_Date;
+// };
+// //子类继承的父类是一个类模板时，子类在声明时必须指定父类的模板参数类型，否则编译器无法给子类分配内存
+// class Son:public Base<int>
+// {
+//     public:
+//         Son()
+//         {
+//             cout<<"Son构造函数调用"<<endl;
+//         }
+// };
+// //如果想灵活指定出父类中的数据类型，子类也需要变为类模板
+// template<class T1,class T2>
+// class Son2:public Base<T1>
+// {
+//     public:
+//         Son2()
+//         {
+//             cout<<"Son2构造函数调用"<<endl;
+//             cout<<"T1的类型:"<<typeid(T1).name()<<endl;
+//             cout<<"T2的类型:"<<typeid(T2).name()<<endl;
+//         }
+//         T2 m_Date2;
+// };
+
+// int main()
+// {
+//     Son s1;//子类继承的父类是一个类模板时，子类在声明时必须指定父类的模板参数类型，否则编译器无法给子类分配内存
+//     Son2<int,double> s2;//如果想灵活指定出父类中的数据类型，子类也需要变为类模板
+
+//     system("pause");
+//     return 0;
+// }
