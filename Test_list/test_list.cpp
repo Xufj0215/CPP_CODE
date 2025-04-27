@@ -1885,22 +1885,263 @@
 // }
 
 
-/*类模板相关案例--实现一个通用的数组类，要求如下：
-    1.可以对内置数据类型以及自定义数据类型的数据进行存储
-    2.将数组中的数据存储到堆区
-    3.构造函数中可以传入数组的容量
-    4.提供对应的拷贝构造函数以及Operator=防止浅拷贝问题
-    5.提供尾插法和尾删法对数组中的数据进行增加和删除
-    6.可以通过下标的方法访问数组中的元素
-    7.可以获取数组中当前元素数量和数组的容量
-*/
-#include<iostream>
-#include<string>
-using namespace std;
+// /*类模板相关案例--实现一个通用的数组类，要求如下：
+//     1.可以对内置数据类型以及自定义数据类型的数据进行存储
+//     2.将数组中的数据存储到堆区
+//     3.构造函数中可以传入数组的容量
+//     4.提供对应的拷贝构造函数以及Operator=防止浅拷贝问题
+//     5.提供尾插法和尾删法对数组中的数据进行增加和删除
+//     6.可以通过下标的方法访问数组中的元素
+//     7.可以获取数组中当前元素数量和数组的容量
+// */
+// #include<iostream>
+// #include<string>
+// using namespace std;
 
-int main()
-{
+// //自定义数据类型--Person类
+// class Person
+// {
+//     public:
+//         Person() // Default constructor
+//         {
+//             this->m_Name = "";
+//             this->m_Age = 0;
+//         }
 
-    system("pause");
-    return 0;
-}
+//         Person(string name, int age)
+//         {
+//             this->m_Name = name;
+//             this->m_Age = age;
+//         }
+
+//         //重载<<运算符
+//         friend ostream& operator<<(ostream& os, const Person& person)
+//         {
+//             os << "Name: " << person.m_Name << ", Age: " << person.m_Age<<endl;
+//             return os;
+//         }
+
+//         string m_Name;
+//         int m_Age;
+// };
+// //自定义数组类模板
+// template<class T>
+// class MyArray
+// {
+//     public:
+//         MyArray(int capacity=10)//构造函数
+//         {
+//             this->m_Capacity=capacity;
+//             this->m_Size=0;
+//             this->m_pAddr= new T[this->m_Capacity];//在堆区开辟数组空间
+//         }
+//         //拷贝构造函数
+//         MyArray(const MyArray &arr)//深拷贝
+//         {
+//             this->m_Capacity=arr.m_Capacity;
+//             this->m_Size=arr.m_Size;
+//             this->m_pAddr=new T[this->m_Capacity];//在堆区开辟数组空间
+//             for(int i=0;i<this->m_Size;i++)
+//             {
+//                 this->m_pAddr[i]=arr.m_pAddr[i];
+//             }
+//         }
+//         //重载=运算符
+//         MyArray& operator=(const MyArray &arr)//深拷贝
+//         {
+//             if(this==&arr)//自我赋值判断
+//                 return *this;
+//             //释放原有空间
+//             if(this->m_pAddr!=nullptr)
+//             {
+//                 delete[] this->m_pAddr;
+//                 this->m_pAddr=nullptr;
+//             }
+//             this->m_Capacity=arr.m_Capacity;
+//             this->m_Size=arr.m_Size;
+//             this->m_pAddr=new T[this->m_Capacity];//在堆区开辟数组空间
+//             for(int i=0;i<this->m_Size;i++)
+//             {
+//                 this->m_pAddr[i]=arr.m_pAddr[i];
+//             }
+//             return *this;
+//         }
+//         //尾插法
+//         void push_back(const T &val)
+//         {
+//             if(this->m_Size>=this->m_Capacity)
+//             {
+//                 cout<<"数组已满，无法插入数据！"<<endl;
+//                 return;
+//             }
+//             this->m_pAddr[this->m_Size]=val;//将数据插入到数组末尾
+//             this->m_Size++;//数组元素数量加1
+//         }
+//         //尾删法
+//         void pop_back()
+//         {
+//             if(this->m_Size<=0)
+//             {
+//                 cout<<"数组已空，无法删除数据！"<<endl;
+//                 return;
+//             }
+//             this->m_Size--;//数组元素数量减1
+//         }
+//         //重载下标运算符
+//         T& operator[](int index)
+//         {
+//             if(index<0||index>=this->m_Size)
+//             {
+//                 cout<<"下标越界！"<<endl;
+//                 exit(-1);
+//             }
+//             return this->m_pAddr[index];//返回数组元素
+//         }
+//         //获取数组容量
+//         int getCapacity()
+//         {
+//             return this->m_Capacity;
+//         }
+//         //获取数组当前元素数量
+//         int getSize()
+//         {
+//             return this->m_Size;
+//         }
+//         //析构函数
+//         ~MyArray()
+//         {
+//             if(this->m_pAddr!=nullptr)
+//             {
+//                 delete[] this->m_pAddr;//释放堆区空间
+//                 this->m_pAddr=nullptr;
+//             }
+//         }
+//         //打印数组元素
+//         void printArray()
+//         {
+//             for(int i=0;i<this->m_Size;i++)
+//             {
+//                 cout<<this->m_pAddr[i]<<" ";
+//             }
+//             cout<<endl;
+//         }
+//     private:
+//         T* m_pAddr;//数组指针
+//         int m_Capacity;//数组容量
+//         int m_Size;//数组当前元素数量
+// };
+// //内置数据类型测试
+// void test01()
+// {
+//     MyArray<int> arr1(5);//创建一个容量为5的数组
+//     arr1.push_back(1);//插入数据
+//     arr1.push_back(2);
+//     arr1.push_back(3);
+//     arr1.push_back(4);
+//     arr1.push_back(5);
+//     arr1.printArray();//打印数组元素
+//     cout<<"数组容量："<<arr1.getCapacity()<<endl;//获取数组容量
+//     cout<<"数组当前元素数量："<<arr1.getSize()<<endl;//获取数组当前元素数量
+//     arr1.pop_back();//删除数据
+//     arr1.printArray();//打印数组元素
+// }
+// //自定义数据类型测试
+// void test02()
+// {
+//     MyArray<string> arr2(5);//创建一个容量为5的数组
+//     arr2.push_back("张三");//插入数据
+//     arr2.push_back("李四");
+//     arr2.push_back("王五");
+//     arr2.push_back("赵六");
+//     arr2.push_back("钱七");
+//     arr2.printArray();//打印数组元素
+//     cout<<"数组容量："<<arr2.getCapacity()<<endl;//获取数组容量
+//     cout<<"数组当前元素数量："<<arr2.getSize()<<endl;//获取数组当前元素数量
+//     arr2.pop_back();//删除数据
+//     arr2.printArray();//打印数组元素
+// }
+// //测试运算符重载operator=
+// void test03()
+// {
+//     MyArray<Person> arr3(5);//创建一个容量为5的数组
+//     Person p1("张三",18);//创建一个Person对象
+//     Person p2("李四",20);
+//     arr3.push_back(p1);//插入数据
+//     arr3.push_back(p2);
+//     arr3.printArray();//打印数组元素
+//     cout<<"数组容量："<<arr3.getCapacity()<<endl;//获取数组容量
+//     cout<<"数组当前元素数量："<<arr3.getSize()<<endl;//获取数组当前元素数量
+//     arr3.pop_back();//删除数据
+//     arr3.printArray();//打印数组元素
+//     MyArray<Person> arr4=arr3;//测试运算符重载operator=
+//     arr4.printArray();//打印数组元素
+//     cout<<"数组容量："<<arr4.getCapacity()<<endl;//获取数组容量
+//     cout<<"数组当前元素数量："<<arr4.getSize()<<endl;//获取数组当前元素数量
+//     arr4.pop_back();//删除数据
+//     arr4.printArray();//打印数组元素
+// }
+// int main()
+// {
+//     // cout<<"内置数据类型测试："<<endl;
+//     // test01();//内置数据类型测试
+//     // cout<<"------------------------"<<endl;
+//     // cout<<"自定义数据类型测试："<<endl;
+//     // test02();//自定义数据类型测试
+//     // cout<<"------------------------"<<endl;
+//     cout<<"运算符重载operator=测试："<<endl;
+//     test03();//测试运算符重载operator=
+//     cout<<"------------------------"<<endl;
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*vector存放内置数据类型*/
+// //容器：vector
+// //算法：for_each
+// //迭代器：vector<int>::iterator
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// #include<iterator>
+// using namespace std;
+
+// void print(int val)
+// {
+//     cout<<val<<" ";
+// }
+// void test01()
+// {
+//     vector<int> v;
+//     for(int i=0;i<5;i++)
+//     {
+//         v.push_back(i+1);//尾插法
+//     }
+//     cout<<"vector容器中的数据:"<<endl;
+//     // //遍历容器中的数据--使用for循环
+//     // for(vector<int>::iterator it=v.begin();it!=v.end();it++)//vector<int>::iterator 拿到vector<int>这种容器的迭代器类型
+//     // {
+//     //     cout<<*it<<" ";
+//     // }
+//     // cout<<endl;
+//     //使用STL提供的标准遍历算法--for_each（）
+//     for_each(v.begin(),v.end(),print);//遍历容器中的数据--使用STL提供的标准遍历算法--for_each()
+//     cout<<endl;
+//     // //原始方式
+//     // vector<int>::iterator pBegin=v.begin();
+//     // vector<int>::iterator pEnd=v.end();
+//     // while(pBegin!=pEnd)
+//     // {
+//     //     cout<<*pBegin<<" ";
+//     //     pBegin++;
+//     // }
+//     // cout<<endl;
+// }
+// int main()
+// {
+//     test01();//vector存放内置数据类型
+    
+//     system("pause");
+//     return 0;
+// }
