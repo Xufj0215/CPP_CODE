@@ -2145,3 +2145,108 @@
 //     system("pause");
 //     return 0;
 // }
+
+
+// /*vector存放自定义数据类型*/
+// #include<iostream>
+// #include<vector>
+// #include<string>
+// using namespace std;
+
+// class Person
+// {
+//     public:
+//         Person(string name,int age)
+//         {
+//             this->m_Name=name;
+//             this->m_Age=age;
+//         }
+
+//         string m_Name;
+//         int m_Age;
+// };
+// void test01()
+// {
+//     vector<Person> v;
+//     Person p1("张三",18);
+//     Person p2("李四",20);
+//     Person p3("王五",22);
+//     v.push_back(p1);//尾插法
+//     v.push_back(p2);//尾插法
+//     v.push_back(p3);//尾插法
+//     cout<<"vector容器中的数据:"<<endl;
+//     //遍历容器中的数据--使用for循环
+//     for(vector<Person>::iterator it=v.begin();it!=v.end();it++)//vector<int>::iterator 拿到vector<int>这种容器的迭代器类型
+//     {
+//         //cout<<"姓名："<<(*it).m_Name<<" 年龄："<<(*it).m_Age<<endl;//使用*运算符访问成员变量
+//         cout<<"姓名："<<it->m_Name<<"年龄："<<it->m_Age<<endl;//使用->运算符访问成员变量
+//     }
+// }
+// void test02()
+// {
+//     vector<Person *> v;
+//     Person p1("张三",18);
+//     Person p2("李四",20);
+//     Person p3("王五",22);
+//     v.push_back(&p1);//尾插法
+//     v.push_back(&p2);//尾插法
+//     v.push_back(&p3);//尾插法
+//     cout<<"vector容器中的数据:"<<endl;
+//     //遍历容器中的数据--使用for循环
+//     for(vector<Person *>::iterator it=v.begin();it!=v.end();it++)//vector<int>::iterator 拿到vector<int>这种容器的迭代器类型
+//     {
+//         //cout<<"姓名："<<(*it).m_Name<<" 年龄："<<(*it).m_Age<<endl;//使用*运算符访问成员变量
+//         cout<<"姓名："<<(*it)->m_Name<<" 年龄："<<(*it)->m_Age<<endl;//使用->运算符访问成员变量
+//     } 
+// }
+// int main()
+// {
+//     //test01();//vector存放自定义数据类型
+//     test02();//vector存放自定义数据类型指针
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*vector容器嵌套容器*/
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+
+// void test01()
+// {
+//     vector<vector<int>> v;
+//     vector<int> v1;
+//     vector<int> v2;
+//     vector<int> v3;
+//     for(int i=0;i<5;i++)
+//     {
+//         v1.push_back(i+1);
+//         v2.push_back(i+3);
+//         v3.push_back(i+5);
+//     }
+//     v.push_back(v1);//尾插法
+//     v.push_back(v2);//尾插法
+//     v.push_back(v3);//尾插法
+//     cout<<"vector容器中的数据:"<<endl;
+//     //遍历容器中的数据--使用for循环
+//     for(vector<vector<int>>::iterator it=v.begin();it!=v.end();it++)//vector<int>::iterator 拿到vector<int>这种容器的迭代器类型
+//     {
+//         //访问嵌套容器中的数据--使用for循环
+//         for(vector<int>::iterator vit=(*it).begin();vit!=(*it).end();vit++)//vector<int>::iterator 拿到vector<int>这种容器的迭代器类型
+//         {
+//             cout<<*vit<<" ";//使用*运算符访问成员变量
+//         }
+//         cout<<endl;
+//     }
+//     cout<<"------------------------"<<endl;
+// }
+
+// int main()
+// {
+//     test01();//vector容器嵌套容器
+
+//     system("pause");
+//     return 0;
+// }
