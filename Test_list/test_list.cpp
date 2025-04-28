@@ -2250,3 +2250,366 @@
 //     system("pause");
 //     return 0;
 // }
+
+
+// //string是c++风格的字符串，而string本质上是一个类，类内部封装了char*指针，管理这个字符串，是一个char*型的容器
+// /*string和char*的区别：
+//     1、string是一个类，char*是一个指针；
+//     2、string可以动态扩展，char*不能；
+//     3、string可以直接使用下标访问，char*需要使用指针访问；
+//     4、string可以直接使用+号连接，char*需要使用strcat函数连接；
+//     5、string可以直接使用赋值运算符=，char*需要使用strcpy函数赋值；
+//     6、string可以直接使用size()函数获取长度，char*需要使用strlen函数获取长度；
+//     7、string可以直接使用clear()函数清空，char*需要使用memset函数清空；
+//     8、string可以直接使用empty()函数判断是否为空，char*需要判断首字符是否为'\0'；
+//     9、string可以直接使用find()函数查找子串，char*需要使用strstr函数查找子串；
+//     10、string可以直接使用substr()函数截取子串，char*需要使用strncpy函数截取子串；
+//     11、string可以直接使用compare()函数比较字符串，char*需要使用strcmp函数比较字符串；
+//     12、string可以直接使用c_str()函数转换为c风格字符串，char*不需要转换；
+//     13、string可以直接使用getline()函数读取一行字符串，char*需要使用cin.getline()函数读取一行字符串；
+//     14、string可以直接使用getline(cin, str)读取一行字符串，char*不支持这种方式读取一行字符串；
+//     15、string可以直接使用getline(cin, str, '\n')读取一行字符串，char*不支持这种方式读取一行字符串；
+//     16、string可以直接使用getline(cin, str, ' ')读取一行字符串，char*不支持这种方式读取一行字符串；
+//     17、string可以直接使用getline(cin, str, '\t')读取一行字符串，char*不支持这种方式读取一行字符串；
+//     18、string可以直接使用getline(cin, str, '\r')读取一行字符串，char*不支持这种方式读取一行字符串；
+//     19、string可以直接使用getline(cin, str, '\f')读取一行字符串，char*不支持这种方式读取一行字符串；
+//     20、string可以直接使用getline(cin, str, '\v')读取一行字符串，char*不支持这种方式读取一行字符串*/
+// /*string的构造函数：
+//     string();//默认构造函数
+//     string(const char *s);//将C风格字符串转换为C++风格字符串
+//     string(const string &str);//拷贝构造函数
+//     string(int n,char c);//将n个字符c组成的字符串
+// */
+// #include<iostream>
+// #include<string>
+// using namespace std;
+// void test01()
+// {
+//     string str1;//默认构造函数
+//     const char *s="hello world!";//将C风格字符串转换为C++风格字符串
+//     string str2(s);
+//     cout<<"str2:"<<str2<<endl;
+//     string str3(str2);//拷贝构造函数
+//     cout<<"str3:"<<str3<<endl;
+//     string str4(5,'a');//将5个字符a组成的字符串
+//     cout<<"str4:"<<str4<<endl;
+// }
+// int main()
+// {
+//     test01();//string的构造函数
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*string的赋值函数原型：
+//     string &operator=(const char *str);//char*类型的字符串赋值给string类型的字符串
+//     string &operator=(const string &str);//把字符串str赋值给当前的字符串
+//     string &operator=(char c);//字符赋值给当前的字符串
+//     string &assign(const char *str);//把字符串str赋值给当前的字符串
+//     string &assign(const char *str,int n);//把字符串str的前n个字符赋值给当前的字符串
+//     string &assign(const string &str);//把字符串str赋值给当前的字符串
+//     string &assign(int n,char c);//把n个字符c赋值给当前的字符串
+// */
+// #include<iostream>
+// #include<string>
+// using namespace std;
+
+// void test01()
+// {
+//     string str1="hello world!";//char*类型的字符串赋值给string类型的字符串
+//     cout<<"str1:"<<str1<<endl;
+//     string str2=str1;//把字符串str1赋值给当前的字符串
+//     cout<<"str2:"<<str2<<endl;
+//     string str3="c";//将字符c赋值给当前的字符串
+//     cout<<"str3:"<<str3<<endl;
+//     string str4;
+//     str4.assign("hello world!");//把字符串str赋值给当前的字符串
+//     cout<<"str4:"<<str4<<endl;
+//     string str5;
+//     str5.assign("hello world!",5);//把字符串str的前5个字符赋值给当前的字符串
+//     cout<<"str5:"<<str5<<endl;
+//     string str6;
+//     str6.assign(str1);//把字符串str1赋值给当前的字符串
+//     cout<<"str6:"<<str6<<endl;
+//     string str7;
+//     str7.assign(5,'a');//把5个字符a赋值给当前的字符串
+//     cout<<"str7:"<<str7<<endl;
+// }
+
+// int main()
+// {
+//     test01();//string的赋值函数
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// //string字符串拼接
+// /*string的拼接函数原型：
+//     string &operator+=(const char *str);//重载+=运算符，把字符串str拼接到当前的字符串
+//     string &operator+=(const string &str);//重载+=运算符，把字符串str拼接到当前的字符串
+//     string &operator+=(char c);//重载+=运算符，把字符串str拼接到当前的字符串
+//     string &append(const char *str);//把字符串str拼接到当前的字符串
+//     string &append(const char *str,int n);//把字符串str的前n个字符拼接到当前的字符串
+//     string &append(const string &str);//把字符串str拼接到当前的字符串
+//     string &append(const string &s,int pos,int n);//把字符串s的从pos开始的n个字符拼接到当前的字符串
+// */
+// #include<iostream>
+// #include<string>
+// using namespace std;
+
+// void test01()
+// {
+//     string str1="我";//char*类型的字符串赋值给string类型的字符串
+//     const char *s="是一个";
+//     str1+=s;//重载+=运算符，把字符串s拼接到当前的字符串
+//     cout<<"str1:"<<str1<<endl;
+//     string str2="学生";
+//     str1+=str2;//重载+=运算符，把字符串str2拼接到当前的字符串
+//     cout<<"str1:"<<str1<<endl;
+//     string str3=str1;
+//     const char c=':';
+//     str3+=c;//重载+=运算符，把字符串str3拼接到当前的字符串
+//     cout<<"str3:"<<str3<<endl;
+//     cout<<"------------------------"<<endl;
+//     string str4="I am a";
+//     const char *s1=" student!";
+//     str4.append(s1);//把字符串s拼接到当前的字符串
+//     cout<<"str4:"<<str4<<endl;
+//     string str5="I am a";
+//     str5.append(s1,8);//把字符串s的前8个字符拼接到当前的字符串
+//     cout<<"str5:"<<str5<<endl;
+//     string str6;
+//     str6.append(str4);//把字符串str4拼接到当前的字符串
+//     cout<<"str6:"<<str6<<endl;
+//     string str7;
+//     str7.append(str4,0,6);
+//     const char *s2=" ZZU";
+//     str7.append(s2).append(s1);
+//     cout<<"str7:"<<str7<<endl;//把字符串s的从pos开始的n个字符拼接到当前的字符串
+// }
+
+// int main()
+// {
+//     test01();//string的拼接函数
+
+//     system("pause");
+//     return 0;
+// }
+
+
+//string的查找和替换
+//查找：查找指定字符串是否存在，返回第一个字符的下标，找不到返回-1
+//替换：将指定字符串替换为新的字符串，返回替换的个数
+/*查找和替换的函数原型：
+    int find(const string &str,int pos=0)const;//查找指定字符串str在当前字符串中第一次出现的位置，从pos开始查找，默认从0开始查找
+    int find(const char *str,int pos=0)const;//查找指定字符串str在当前字符串中第一次出现的位置，从pos开始查找，默认从0开始查找
+    int find(const char *str,int pos,int n)const;//从pos开始查找str的前n个字符在当前字符串中第一次出现的位置，默认从0开始查找
+    int find(const char c,int pos=0)const;//查找字符c第一次出现的位置
+    int rfind(const string &str,int pos=npos)const;//查找str最后一次出现的位置，从pos开始查找
+    int rfind(const char *str,int pos=npos)const;//查找str最后一次出现的位置，从pos开始查找
+    int rfind(const char *str,int pos,int n)const;//从pos开始查找str的前n个字符在当前字符串中最后一次出现的位置
+    int rfind(const char c,int pos=npos)const;//查找字符c最后一次出现的位置
+    string &replace(int pos,int n,const string &str);//将当前字符串中从pos开始的n个字符替换为str
+    string &replace(int pos,int n,const char *str);//将当前字符串中从pos开始的n个字符替换为str
+    string &replace(int pos,int n,const char *str,int m);//将当前字符串中从pos开始的n个字符替换为str的前m个字符
+    string &replace(int pos,int n,char c);//将当前字符串中从pos开始的n个字符替换为字符c
+*/
+//find查找是从左往右，rfind查找是从右往左
+//find找到字符串后返回查找的第一个字符的下标，rfind找到字符串后返回查找的最后一个字符的下标
+//replace在替换时要制定从哪个位置起，多少个字符，替换成什么样的字符串
+// #include<iostream>
+// #include<string>
+// using namespace std;
+// //string的查找
+// void test01()
+// {
+//     string str1="abcdefgdehfc";
+//     string str2="de";
+//     //查找指定字符串str在当前字符串中第一次出现的位置，从pos开始查找，默认从0开始查找
+//     int pos=str1.find(str2);
+//     if(pos!=-1)
+//     {
+//         cout<<str2<<" 在str1中的位置为:"<<pos<<endl;
+//     }
+//     else
+//     {
+//         cout<<str2<<" 不在str1中!"<<endl;
+//     }
+//     //查找指定字符串str在当前字符串中最后一次出现的位置
+//     int npos=str1.rfind(str2);
+//     if(pos!=-1)
+//     {
+//         cout<<str2<<" 在str1中的位置为:"<<npos<<endl;
+//     }
+//     else
+//     {
+//         cout<<str2<<" 不在str1中!"<<endl;
+//     }
+// }
+// //string的替换
+// void test02()
+// {
+//     string str1="abcdefg";
+//     cout<<"替换前的str1:"<<str1<<endl;
+//     const char *s="12345";
+//     str1.replace(2,3,s);//将当前字符串中从pos开始的n个字符替换为str
+//     cout<<"替换后的str1:"<<str1<<endl;
+// }
+// int main()
+// {
+//     test01();//string的查找
+//     test02();//string的替换
+
+//     system("pause");
+//     return 0;
+// }
+
+
+//string的字符串比较
+//比较方式：按字符的ASCII码值进行比较，=返回0，>返回1，<返回-1
+/*字符串比较函数原型：
+    int compare(const string &str)const;
+    int compare(const char *c)const;
+*/
+// #include<iostream>
+// #include<string>
+// using namespace std;
+// //string的字符串比较
+// void test01()
+// {
+//     string str1="hello world!";
+//     string str2="wello world!";
+//     if(str1.compare(str2)==0)
+//     {
+//         cout<<"str1和str2相等!"<<endl;
+//     }
+//     else if(str1.compare(str2)<0)
+//     {
+//         cout<<"str1小于str2!"<<endl;
+//     }
+//     else
+//     {
+//         cout<<"str1大于str2!"<<endl;
+//     }
+// }
+// int main()
+// {
+//     test01();//string的字符串比较
+
+//     system("pause");
+//     return 0;
+// }
+
+
+//string字符存取
+//string中单个字符的存取方式：使用下标运算符[]和at()函数
+//下标运算符[]：可以直接访问字符串中的字符，返回的是字符的引用，可以修改字符串中的字符
+//at()函数：可以直接访问字符串中的字符，返回的是字符的值，不能修改字符串中的字符
+// #include<iostream>
+// #include<string>
+// using namespace std;
+// void test01()
+// {
+//     string str1="hello world!";
+//     cout<<"str1:"<<str1<<endl;
+//     //使用下标运算符[]访问字符串中的字符
+//     for(int i=0;i<str1.size();i++)
+//     {
+//         cout<<str1[i]<<" ";
+//     }
+//     cout<<endl;
+//     //使用at()函数访问字符串中的字符
+//     for(int i=0;i<str1.size();i++)
+//     {
+//         cout<<str1.at(i)<<" ";
+//     }
+//     cout<<endl;
+//     //使用下标运算符[]修改字符串中的字符
+//     for(int i=0;i<str1.size();i++)
+//     {
+//         str1[i]='a'+i;
+//     }
+//     cout<<"str1:"<<str1<<endl;
+//     //使用at()函数修改字符串中的字符
+//     for(int i=0;i<str1.size();i++)
+//     {
+//         str1.at(i)='A'+i;
+//     }
+//     cout<<"str1:"<<str1<<endl;
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// //string的插入和删除--对string字符串进行插入和删除字符操作
+// //插入：在指定位置插入指定字符串，返回插入后字符串的长度
+// //删除：删除指定位置的字符，返回删除后字符串的长度
+// /*插入和删除的函数原型：
+//     string &insert(int pos,const char *s);//插入字符串
+//     string &insert(int pos,const string &str);//插入字符串
+//     string &insert(int pos,int n,char c);//在指定位置插入n个字符c
+//     string &erase(int pos=0,int n=npos);//删除从Pos开始的n个字符
+// */
+// #include<iostream>
+// #include<string>
+// using namespace std;
+// void test01()
+// {
+//     string str1="hello world!";
+//     string str2="student";
+//     cout<<"插入前的str1:"<<str1<<endl;
+//     const char *s="12345";
+//     str1.replace(6,5,str2);
+//     cout<<"替换后的str1:"<<str1<<endl;
+//     str1.insert(6,s);//在指定位置插入字符串
+//     str1.insert(11,1,' ');
+//     cout<<"插入后的str1:"<<str1<<endl;
+//     str2.insert(0,5,'a');//在指定位置插入n个字符c
+//     str2.insert(5,1,' ');
+//     cout<<"插入后的str2:"<<str2<<endl;   
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// //string字串--从字符串中获取想要的字串
+// /*string的字串函数原型：
+//     string substr(int pos=0,int n=npos)const;//从pos开始获取n个字符组成的字串，n为npos表示获取到字符串末尾
+// */
+// #include<iostream>
+// #include<string>
+// using namespace std;
+// void test01()
+// {
+//     string str1="hello world!";
+//     cout<<"str1:"<<str1<<endl;
+//     string str2=str1.substr(0,5);
+//     cout<<"str2:"<<str2<<endl;
+
+//     string str3="zhangsan@163.com";
+//     cout<<"str3:"<<str3<<endl;
+//     int pos=str3.find('@');
+//     string str4=str3.substr(0,pos);
+//     cout<<"str4:"<<str4<<endl;
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
