@@ -1,4 +1,7 @@
-// #pragma once
+// //#pragma once
+// #ifndef PERSON_H
+// #define PERSON_H
+// #endif
 // #include<iostream>
 // #include<string>
 // using namespace std;
@@ -26,3 +29,6 @@
 // {
 //     cout<<"ÐÕÃû£º"<<this->m_Name<<" ÄêÁä£º"<<this->m_Age<<endl;
 // }
+
+
+

@@ -1789,10 +1789,10 @@
 // }
 
 
-/*类模板分文件编写问题及解决*/
-//类模板中成员函数创建时期是在调用阶段，导致分文件编写时链接不到
-//解决方法1：直接包含.cpp源文件
-//解决方法2：将声明和实现写到同一个文件中，并更改后缀名为.hpp，hpp是约定的名称，并不是强制
+// /*类模板分文件编写问题及解决*/
+// //类模板中成员函数创建时期是在调用阶段，导致分文件编写时链接不到
+// //解决方法1：直接包含.cpp源文件
+// //解决方法2：将声明和实现写到同一个文件中，并更改后缀名为.hpp，hpp是约定的名称，并不是强制
 // #include"person.hpp"
 // // #include<iostream>
 // // #include<string>
@@ -2605,6 +2605,325 @@
 //     int pos=str3.find('@');
 //     string str4=str3.substr(0,pos);
 //     cout<<"str4:"<<str4<<endl;
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*vector构造函数--创建vector容器*/
+// /*vector构造函数原型:
+//     vector(T) v;//采用实现类实现，默认构造函数
+//     vector(v.begin(),v.end());//将迭代器范围内的元素复制到vector容器中
+//     vector(n,elem);//构造函数将n个elem拷贝给本身
+//     vector(const vector &vec);//拷贝构造函数
+// */
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+// void printVector(vector<int> &v)
+// {
+//     for(vector<int>::iterator it=v.begin();it<v.end();it++)
+//     {
+//         cout<<*it<<" ";
+//     }
+//     cout<<endl;
+// }
+// void test01()
+// {
+//     vector<int> v1;//默认构造函数
+//     for(int i=0;i<10;i++)
+//     {
+//         v1.push_back(i);
+//     }
+//     printVector(v1);
+//     //将迭代器范围内的元素复制到vector容器中
+//     vector<int> v2=vector<int>(v1.begin(),v1.end());
+//     printVector(v2);
+//     //构造函数将n个elem拷贝给本身
+//     vector<int> v3=vector<int>(10,100);
+//     printVector(v3);
+//     //拷贝构造函数
+//     vector<int> v4=v3;
+//     printVector(v4);
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*vector容器赋值操作*/
+// /*vector赋值函数原型：
+//     vector &operator=(const vector &vec);//重载等号操作符
+//     assign(n,elem);//将n个elem拷贝给本身
+//     assign(beg,end);//将迭代器范围内的元素复制到vector容器中
+// */
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+// void printVector(vector<int> &v)
+// {
+//     for(vector<int>::iterator it=v.begin();it<v.end();it++)
+//     {
+//         cout<<*it<<" ";
+//     }
+//     cout<<endl;
+// }
+// void test01()
+// {
+//     vector<int> v1;
+//     for(int i=0;i<10;i++)
+//     {
+//         v1.push_back(i);
+//     }
+//     printVector(v1);
+//     //重载等号操作符
+//     vector<int> v2=v1;
+//     printVector(v2);
+//     //将迭代器范围内的元素复制到vector容器中
+//     vector<int> v3;
+//     v3.assign(v1.begin(),v1.end());
+//     printVector(v3);
+//     //将n个elem拷贝给本身
+//     vector<int> v4;
+//     v4.assign(10,100);
+//     printVector(v4);
+// }
+// int main()
+// {
+//     test01();//vector容器赋值操作
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*vector容量和大小*/
+// /*容量函数原型：
+//     empty();//判断容器是否为空
+//     capacity();//容器的容量
+//     size();//返回容器中元素的个数
+//     resize(int num);//重新指定容器的长度为num，若容器变长则以默认值填充新位置，若变短则末尾超出容器长度的元素被删除
+//     resize(int num,elem);//重新指定容器的长度为num，若容器变长则以elem值填充新位置，若变短则末尾超出容器长度的元素被删除
+// */
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+// void printVector(vector<int> &v)
+// {
+//     for(vector<int>::iterator it=v.begin();it<v.end();it++)
+//     {
+//         cout<<*it<<" ";
+//     }
+//     cout<<endl;
+// }
+// void test01()
+// {
+//     vector<int> v1;
+//     for(int i=0;i<10;i++)
+//     {
+//         v1.push_back(i);
+//     }
+//     printVector(v1);
+//     if(v1.empty())
+//     {
+//         cout<<"v1为空!"<<endl;
+//     }
+//     else
+//     {
+//         cout<<"v1不为空!"<<endl;
+//         cout<<"v1的容量为:"<<v1.capacity()<<endl;
+//         cout<<"v1的大小为:"<<v1.size()<<endl;
+//         v1.resize(15);//重新指定容器的容量为15,默认以0填充新位置
+//         cout<<"重新指定容量(以0填充)后的v1:"<<endl;
+//         printVector(v1);
+//         v1.resize(5);//重新指定容器的容量为5,删除末尾超出容器长度的元素
+//         cout<<"重新指定容量后的v1:"<<endl;
+//         printVector(v1);
+//         v1.resize(12,30);//重新指定容器的容量为12,以30填充新位置
+//         cout<<"重新指定容量(以30填充)后的v1:"<<endl;
+//         printVector(v1);
+//     }
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*vector插入和删除*/
+// /*函数原型:
+//     push_back(elem);//在容器末尾添加一个元素elem
+//     pop_back();//删除容器末尾的一个元素
+//     insert(const_iterator pos,elem);//在pos位置插入一个元素elem
+//     insert(const_iterator pos,int n,elem);//在pos位置插入n个元素elem
+//     erase(const_iterator pos);//删除pos位置的元素
+//     erase(const_iterator start,const_iterator end);//删除[start,end)范围内的元素
+//     clear();//清空容器中的所有元素
+// */
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+// void printVector(vector<int> &v)
+// {
+//     for(vector<int>::iterator it=v.begin();it<v.end();it++)
+//     {
+//         cout<<*it<<" ";
+//     }
+//     cout<<endl;
+// }
+// void test01()
+// {
+//     vector<int> v1;
+//     for(int i=0;i<5;i++)
+//     {
+//         v1.push_back((i+1)*10);//尾插法
+//     }
+//     printVector(v1);//打印数组元素
+//     //尾删
+//     v1.pop_back();
+//     printVector(v1);
+//     //使用迭代器插入单个元素
+//     v1.insert(v1.begin(),100);
+//     printVector(v1);
+//     //使用迭代器插入多个元素
+//     v1.insert(v1.begin()+1,2,200);
+//     printVector(v1);
+//     //使用迭代器删除指定位置单个元素
+//     v1.erase(v1.begin()+2);
+//     printVector(v1);
+//     //使用迭代器删除指定区间的元素
+//     v1.erase(v1.begin()+1,v1.begin()+5);//指定区间左闭右开
+//     printVector(v1);
+// }
+// int main()
+// {
+//     test01();//vector插入和删除
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*vector容器数据存取*/
+// /*函数原型：
+//     at(int idx);//返回索引idx所指的数据
+//     operator[];//返回索引idx所指的数据
+//     front();//返回容器中第一个数据元素
+//     back();//返回容器中最后一个数据元素
+// */
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+// void printVector(vector<int> &v)
+// {
+//     for(vector<int>::iterator it=v.begin();it<v.end();it++)
+//     {
+//         cout<<*it<<" ";
+//     }
+//     cout<<endl;
+// }
+// void test01()
+// {
+//     vector<int> v1;
+//     v1.push_back(10);
+//     v1.push_back(20);
+//     v1.push_back(30);
+//     v1.push_back(40);
+//     v1.push_back(50);
+//     printVector(v1);
+//     //返回索引idx所指的数据
+//     cout<<"容器中第一个元素为:"<<v1.front()<<endl;//返回容器中第一个数据元素
+//     cout<<"容器中第二个元素为:"<<v1.at(1)<<endl;
+//     cout<<"容器中第三个元素为:"<<v1[2]<<endl;
+//     cout<<"容器中最后一个元素为:"<<v1.back()<<endl;//返回容器中最后一个数据元素
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*vector互换容器--swap(vec)//将vec与该容器的元素进行互换*/
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+// void printVector(vector<int> &v)
+// {
+//     for(vector<int>::iterator it=v.begin();it<v.end();it++)
+//     {
+//         cout<<*it<<" ";
+//     }
+//     cout<<endl;
+// }
+// void test01()
+// {
+//     vector<int> v1;
+//     for(int i=0;i<5;i++)
+//     {
+//         v1.push_back(i+1);
+//     }
+//     cout<<"交换前v1中的元素:";
+//     printVector(v1);
+//     vector<int> v2;
+//     for(int i=0;i<5;i++)
+//     {
+//         v2.push_back(5-i);
+//     }
+//     cout<<"交换前v2中的元素:";
+//     printVector(v2);
+//     cout<<"<---------------------------->"<<endl;
+//     v1.swap(v2);
+//     cout<<"交换后v1中的元素:";
+//     printVector(v1);
+//     cout<<"交换后v2中的元素:";
+//     printVector(v2);
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*vector预留空间--减少vector在动态扩展容量时的扩展次数*/
+// //函数原型：reserve(int len);//容器预留len个元素长度的空间，预留位置不初始化，元素不可访问
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+// void test01()
+// {
+//     vector<int> v1;
+//     //预留空间
+//     v1.reserve(100000);//预留100000个元素长度的空间，减少vector在动态扩展容量时的扩展次数
+//     int num=0;
+//     int *p=nullptr;
+//     for(int i=0;i<100000;i++)
+//     {
+//         v1.push_back(i+1);//尾插法
+//         if(p!=&v1[0])
+//         {
+//             p=&v1[0];//vector动态扩展了一次内存，p重新指向了vector的首地址
+//             num++;
+//         }    
+//     }
+//     cout<<"vector动态扩展了 "<<num<<" 次容量！"<<endl;
 // }
 // int main()
 // {
