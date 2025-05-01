@@ -8,9 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/Code/CPP-Code/VScode/Test_list",
-      "program": "${workspaceFolder}\\${workspaceRootFolderName}.exe",
-      //${workspaceFolder}\\${workspaceRootFolderName}.exe
+      "cwd": "d:/Code/CPP-Code/CPP_CODE",
+      "program": "d:/Code/CPP-Code/CPP_CODE/test_list.exe",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
