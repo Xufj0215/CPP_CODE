@@ -3023,3 +3023,298 @@
 //     system("pause");
 //     return 0;
 // }
+
+
+// /*deque容器大小操作*/
+// /*函数原型:
+//     empty();//判断容器是否为空
+//     size();//返回容器中元素的个数
+//     resize(int num);//重新指定容器的长度为num，若容器变长则以默认值填充新位置，若变短则末尾超出容器长度的元素被删除
+//     resize(int num,elem);//重新指定容器的长度为num，若容器变长则以elem值填充新位置，若变短则末尾超出容器长度的元素被删除
+// */
+// #include<iostream>
+// #include<deque>
+// using namespace std;
+// void printDeque(const deque<int> &d)
+// {
+//     for(deque<int>::const_iterator it=d.begin();it!=d.end();it++)
+//     {
+//         cout<<*it<<" ";
+//     }
+//     cout<<endl;
+// }
+// void test01()
+// {
+//     deque<int> d1;
+//     for(int i=0;i<10;i++)
+//     {
+//         d1.push_back(i);//尾插法
+//     }
+//     printDeque(d1);
+//     if(d1.empty())
+//     {
+//         cout<<"d1为空!"<<endl;
+//     }
+//     else
+//     {
+//         cout<<"d1不为空!"<<endl;
+//         cout<<"d1的大小为:"<<d1.size()<<endl;
+//         d1.resize(15);//重新指定容器的容量为15,默认以0填充新位置
+//         cout<<"重新指定容量(以0填充)后的d1:"<<endl;
+//         printDeque(d1);
+//         d1.resize(5);//重新指定容器的容量为5,删除末尾超出容器长度的元素
+//         cout<<"重新指定容量后的d1:"<<endl;
+//         printDeque(d1);
+//         d1.resize(12,30);//重新指定容器的容量为12,以30填充新位置
+//         cout<<"重新指定容量(以30填充)后的d1:"<<endl;
+//         printDeque(d1);
+//     }
+// }
+// int main()
+// {
+//     test01();//deque容器大小操作
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*deque的插入和删除*/
+// /*函数原型
+// 两端插入操作：
+//     push_front(elem);//在容器头部添加一个元素elem
+//     push_back(elem);//在容器尾部添加一个元素elem
+//     pop_front();//删除容器头部的一个元素
+//     pop_back();//删除容器尾部的一个元素
+// 指定位置操作：
+//     insert(const_iterator pos,elem);//在pos位置插入一个元素elem
+//     insert(const_iterator pos,int n,elem);//在pos位置插入n个元素elem
+//     erase(const_iterator pos);//删除pos位置的元素
+//     erase(const_iterator start,const_iterator end);//删除[start,end)范围内的元素
+//     clear();//清空容器中的所有元素
+// */
+// #include<iostream>
+// #include<deque>
+// using namespace std;
+// void printDeque(const deque<int> &d)
+// {
+//     for(deque<int>::const_iterator it=d.begin();it!=d.end();it++)
+//     {
+//         cout<<*it<<" ";
+//     }
+//     cout<<endl;
+// }
+// void test01()
+// {
+//     deque<int> d1;
+//     for(int i=0;i<10;i++)
+//     {
+//         d1.push_back(i);//尾插法
+//     }
+//     printDeque(d1);//打印d1中的元素
+
+//     //在容器头部添加一个元素elem
+//     d1.push_front(100);
+//     printDeque(d1);
+//     //在容器尾部添加一个元素elem
+//     d1.push_back(200);
+//     printDeque(d1);
+//     //删除容器头部的一个元素
+//     d1.pop_front();
+//     printDeque(d1);
+//     //删除容器尾部的一个元素
+//     d1.pop_back();
+//     printDeque(d1);
+
+//     //使用迭代器在指定位置插入单个元素
+//     d1.insert(d1.begin(),50);//在容器头部插入一个元素50
+//     printDeque(d1);
+//     //使用迭代器在指定位置插入多个元素
+//     d1.insert(d1.begin()+1,2,100);//在容器头部插入两个元素100
+//     printDeque(d1);
+//     //使用迭代器删除指定位置单个元素
+//     d1.erase(d1.begin()+2);//删除容器头部的一个元素
+//     printDeque(d1);
+//     //使用迭代器删除指定区间的元素
+//     d1.erase(d1.begin()+1,d1.begin()+5);//指定区间左闭右开
+//     printDeque(d1);
+// }
+// int main()
+// {
+//     test01();//deque的插入和删除
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*deque数据的存取*/
+// /*函数原型：
+//     at(int dex);//返回索引dex所指向的数据
+//     operator[];//返回索引dex所指向的数据
+//     front();//返回容器中第一个数据元素
+//     back();//返回容器中最后一个数据元素
+// */
+// #include<iostream>
+// #include<deque>
+// using namespace std;
+// void printDeque(const deque<int> &d)
+// {
+//     for(deque<int>::const_iterator it=d.begin();it!=d.end();it++)
+//     {
+//         cout<<*it<<" ";
+//     }
+//     cout<<endl;
+// }
+// void test01()
+// {
+//     deque<int> d1;
+//     for(int i=0;i<10;i++)
+//     {
+//         d1.push_back(i);//尾插法
+//     }
+//     printDeque(d1);//打印d1中的元素
+//     cout<<"d1中的第一个数据元素为:"<<d1.at(0)<<endl;
+//     cout<<"d1中的第二个数据元素为:"<<d1[1]<<endl;
+//     cout<<"d1中的第一个数据元素为:"<<d1.front()<<endl;
+//     cout<<"d1中的最后一个数据元素为:"<<d1.back()<<endl;
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*deque容器排序--sort(iterator beg,iterator end):对beg和end区间内数据元素进行排序*/
+// #include<iostream>
+// #include<deque>
+// #include<algorithm>
+// using namespace std;
+// void printDeque(const deque<int> &d)
+// {
+//     for(deque<int>::const_iterator it=d.begin();it!=d.end();it++)
+//     {
+//         cout<<*it<<" ";
+//     }
+//     cout<<endl;
+// }
+// void test01()
+// {
+//     deque<int> d1;
+//     for(int i=0;i<10;i++)
+//     {
+//         d1.push_back(9-i);
+//     }
+//     cout<<"排序前：";
+//     printDeque(d1);
+//     sort(d1.begin(),d1.end());//默认升序排列，区间左闭右开
+//     cout<<"排序后：";
+//     printDeque(d1);
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*评委打分案例--有5位选手ABCDE，10位评委分别对每一位选手打分，去除最高分和最低分后取平均分*/
+// /*实现步骤：
+//     1、创建5位选手，放到vector容器中
+//     2、遍历vector容器取出每一位选手，执行for循环，可以把评委的打分存到deque容器中
+//     3、sort算法对deque中分数进行排序，去除最高分和最低分
+//     4、遍历deque容器中数据元素，累加总分
+//     5、获取平均分
+// */
+// #include<iostream>
+// #include<vector>
+// #include<deque>
+// #include<string>
+// #include<algorithm>
+// #include<ctime>
+// using namespace std;
+// class Person
+// {
+//     public:
+//         Person(string name,int score)
+//         {
+//             this->m_Name=name;
+//             this->m_Score=score;
+//         }
+//         string m_Name;
+//         int m_Score;
+// };
+// void creatPerson(vector<Person> &v)
+// {
+//     string nameSeed="ABCDE";
+//     for(int i=0;i<5;i++)
+//     {
+//         string name="选手";
+//         name+=nameSeed[i];
+//         int score=0;
+//         Person p(name,score);
+//         v.push_back(p);//将创建的Person对象放到vector容器中
+//     }
+// }
+// void printVector(vector<Person> &v)
+// {
+//     for(vector<Person>::const_iterator it=v.begin();it!=v.end();it++)
+//     {
+//         cout<<"姓名："<<(*it).m_Name<<"     分数："<<(*it).m_Score<<endl;
+//     }
+//     cout<<endl;
+// }
+// void setScore(vector<Person> &v)
+// {
+//     for(vector<Person>::iterator it=v.begin();it!=v.end();it++)
+//     {
+//         //创建deque容器存放评委打分结果
+//         deque<int> d;
+//         for(int i=0;i<10;i++)
+//         {
+//             int score=rand()%41+60;
+//             d.push_back(score);
+//         }
+//         // cout<<"选手："<<it->m_Name<<"   评委打分：";
+//         // for(deque<int>::const_iterator it=d.begin();it!=d.end();it++)
+//         // {
+//         //     cout<<*it<<" ";
+//         // }
+//         // cout<<endl;
+//         //排序
+//         sort(d.begin(),d.end());
+//         //去除最高分和最低分
+//         d.pop_back();
+//         d.pop_front();
+//         //取平均分
+//         int sum=0;
+//         for(deque<int>::iterator it=d.begin();it!=d.end();it++)
+//         {
+//             sum+=*it;
+//         }
+//         int avg=sum/d.size();
+//         //给选手赋分
+//         it->m_Score=avg;
+//     }
+// }
+// int main()
+// {
+//     //随机数种子
+//     srand((unsigned int)time(NULL));
+//     //创建5位选手
+//     vector<Person> v;
+//     creatPerson(v);
+//     //printVector(v);
+//     //给5位选手打分
+//     setScore(v);
+//     //显示最后分数
+//     printVector(v);
+
+//     system("pause");
+//     return 0;
+// }
