@@ -4569,3 +4569,268 @@
 //     system("pause");
 //     return 0;
 // }
+
+
+// /*函数对象概念及使用
+// 1、重载函数调用操作符的类，其对象常称为函数对象
+// 2、函数对象使用重载的()时，其行为类似函数调用，也叫仿函数
+// 3、函数对象（仿函数）本质上是一个类，不是一个函数
+// 4、函数对象在使用时，可以像普通函数那样调用，可以有参数，可以有返回值
+// 5、函数对象超出普通函数的概念，函数对象可以有自己的概念
+// 6、函数对象可以作为参数传递*/
+// #include<iostream>
+// #include<string>
+// using namespace std;
+// class MyAdd
+// {
+// public:
+//     int operator()(int n1,int n2)
+//     {
+//         return n1+n2;
+//     }
+// };
+// class MyPrint
+// {
+// public:
+//     MyPrint()
+//     {
+//         count=0;
+//     }
+//     void operator()(string str)
+//     {
+//         cout<<str<<endl;
+//         count++;
+//     }
+//     int count;
+// };
+// void DoPrint(MyPrint &myprint,string str)
+// {
+//     myprint(str);
+// }
+// void test01()
+// {
+//     //函数对象在使用时，可以像普通函数那样调用，可以有参数，可以有返回值
+//     MyAdd myadd;
+//     cout<<myadd(10,10)<<endl;
+//     //函数对象超出普通函数的概念，函数对象可以有自己的概念
+//     MyPrint myprint;
+//     myprint("Hello World!");
+//     myprint("Hello World!");
+//     myprint("Hello World!");
+//     cout<<"myprint的调用次数为:"<<myprint.count<<endl;
+//     //函数对象可以作为参数传递
+//     DoPrint(myprint,"Hello C++!");
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*谓词--返回bool类型的仿函数
+// 1、如果operator()接受一个参数，那么叫作一元谓词
+// 2、如果operator()接受两个参数，那么叫作二元谓词*/
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// using namespace std;
+// //一元谓词
+// class GreatFive
+// {
+// public:
+//     bool operator()(int val)
+//     {
+//         return val>5;
+//     }
+// };
+// //一元谓词
+// void test01()
+// {
+//     vector<int> V;
+//     for(int i=0;i<10;i++)
+//     {
+//         V.push_back(i);
+//     }
+//     vector<int>::iterator it=find_if(V.begin(),V.end(),GreatFive());
+//     if(it!=V.end())
+//     {
+//         cout<<"找到了大于5的数:"<<*it<<endl;
+//     }
+//     else
+//     {
+//         cout<<"没有找到大于5的数!"<<endl;
+//     }
+// }
+// //二元谓词
+// class MyCompare
+// {
+// public:
+//     bool operator()(int val1,int val2)
+//     {
+//         return val1>val2;
+//     }
+// };
+// //二元谓词
+// void test02()
+// {
+//     vector<int> V1;
+//     V1.push_back(10);
+//     V1.push_back(40);
+//     V1.push_back(20);
+//     V1.push_back(50);
+//     V1.push_back(30);
+//     //默认按升序排列
+//     sort(V1.begin(),V1.end());
+//     for(vector<int>::iterator it=V1.begin();it!=V1.end();it++)
+//     {
+//         cout<<*it<<" ";
+//     }
+//     cout<<endl;
+//     cout<<"<------------------>"<<endl;
+//     //利用二元谓词实现降序排列
+//     sort(V1.begin(),V1.end(),MyCompare());
+//     for(vector<int>::iterator it=V1.begin();it!=V1.end();it++)
+//     {
+//         cout<<*it<<" ";
+//     }
+//     cout<<endl;
+//     cout<<"<------------------>"<<endl;
+// }
+// int main()
+// {
+//     //test01();//一元谓词
+//     test02();//二元谓词
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*内建函数对象
+// 1、分类：算数仿函数、关系仿函数、逻辑仿函数
+// 2、这些仿函数产生的对象，用法和一般函数完全相同
+// 3、使用内建函数对象，需要引入头文件#include<functional>*/
+// /*算数仿函数--实现四则运算，其中negate是一元运算，其他都是二元运算
+//     template<class T> T plus<T>;//加法仿函数
+//     template<class T> T minus<T>//减法仿函数
+//     template<class T> T multiplies<T>//乘法仿函数
+//     template<class T> T divides<T>//除法仿函数
+//     template<class T> T modulus<T>//取模仿函数
+//     template<class T> T negate<T>//取反仿函数*/
+// #include<iostream>
+// #include<functional>
+// using namespace std;
+// void test01()
+// {
+//     negate<int> n;//取反
+//     cout<<"50取反= "<<n(50)<<endl;
+//     plus<int> p;//加法
+//     cout<<"10 + 20 = "<<p(10,20)<<endl;
+//     minus<int> mi;//减法
+//     cout<<"10 - 20 = "<<mi(10,20)<<endl;
+//     multiplies<int> mu;//乘法
+//     cout<<"10 * 20 = "<<mu(10,20)<<endl;
+//     divides<int> di;//除法
+//     cout<<"20 / 10 = "<<di(20,10)<<endl;
+//     modulus<int> mo;//取模
+//     cout<<"15 % 2 ="<<mo(15,2);
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*关系仿函数
+//      template<class T> bool equal_to<T>;//等于
+//      template<class T> bool not_equal_to<T>;//不等于
+//      template<class T> bool greater<T>;//大于
+//      template<class T> bool greater_equal<T>;//大于等于
+//      template<class T> bool less<T>;//小于
+//      template<class T> bool less_equal<T>;//小于等于
+// */
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// #include<functional>
+// using namespace std;
+// void test01()
+// {
+//     vector<int> V1;
+//     V1.push_back(10);
+//     V1.push_back(40);
+//     V1.push_back(20);
+//     V1.push_back(50);
+//     V1.push_back(30);
+//     //默认按升序排列
+//     sort(V1.begin(),V1.end());
+//     for(vector<int>::iterator it=V1.begin();it!=V1.end();it++)
+//     {
+//         cout<<*it<<" ";
+//     }
+//     cout<<endl;
+//     cout<<"<------------------>"<<endl;
+//     //利用内建的大于仿函数实现降序排列
+//     sort(V1.begin(),V1.end(),greater<int>());
+//     for(vector<int>::iterator it=V1.begin();it!=V1.end();it++)
+//     {
+//         cout<<*it<<" ";
+//     }
+//     cout<<endl;
+//     cout<<"<------------------>"<<endl;   
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*逻辑仿函数
+//     template<class T> bool logical_and<T>//逻辑与
+//     template<class T> bool logical_or<T>//逻辑或
+//     template<class T> bool logical_not<T>//逻辑非
+// */
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// #include<functional>
+// using namespace std;
+// void test01()
+// {
+//     vector<bool> V1;
+//     V1.push_back(true);
+//     V1.push_back(false);
+//     V1.push_back(false);
+//     V1.push_back(true);
+//     V1.push_back(false);
+//     for(vector<bool>::iterator it=V1.begin();it!=V1.end();it++)
+//     {
+//         cout<<*it<<" ";
+//     }
+//     cout<<endl;
+//     vector<bool> V2;
+//     V2.resize(V1.size());
+//     //将容器V1中的数据经过逻辑非运算后转移到容器V2中
+//     transform(V1.begin(),V1.end(),V2.begin(),logical_not<bool>());
+//     for(vector<bool>::iterator it=V2.begin();it!=V2.end();it++)
+//     {
+//         cout<<*it<<" ";
+//     }
+//     cout<<endl;
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
