@@ -4163,3 +4163,409 @@
 //     system("pause");
 //     return 0;
 // }
+
+
+// /*map/multimap容器*/
+// /*map基本概念
+//     简介：map中左右元素都是pair,pair中第一个元素为key，起到索引作用，第二个元素为value（实值）
+//          所有元素都会根据元素的键值自动排序
+//     本质：map/multimap属于关联式容器，底层结构是用二叉树实现
+//     优点：可以根据key值快速找到value值
+//     map/multimap区别：map不允许容器中有重复key值元素，multimap允许容器中有重复key值元素
+// */
+// /*map的构造和赋值
+//     构造函数：map<T1,T2> mp;//默认构造函数
+//              map<const map &mp>;//拷贝构造函数
+//     赋值函数：map& operator=(const map &mp)//重载等号操作符
+// */
+// #include<iostream>
+// #include<map>
+// using namespace std;
+// void printMap(map<int,int> &m)
+// {
+//     for(map<int,int>::iterator it=m.begin();it!=m.end();it++)
+//     {
+//         cout<<"key= "<<(*it).first<<"   value= "<<it->second<<endl;
+//     }
+// }
+// void test01()
+// {
+//     map<int,int> mp1;//默认构造函数
+//     mp1.insert(pair<int,int>(1,10));
+//     mp1.insert(pair<int,int>(3,30));
+//     mp1.insert(pair<int,int>(2,20));
+//     mp1.insert(pair<int,int>(5,50));
+//     mp1.insert(pair<int,int>(4,40));
+//     printMap(mp1);
+//     cout<<"<--------------------------->"<<endl;
+//     map<int,int> mp2(mp1);//拷贝构造函数
+//     printMap(mp2);
+//     cout<<"<--------------------------->"<<endl;
+//     map<int,int> mp3=mp1;//重载等号操作符
+//     printMap(mp3);
+//     cout<<"<--------------------------->"<<endl;
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*map大小和交换*/
+// /*函数原型：
+//     size();//返回容器中元素的数目
+//     empty();//判断容器是否为空
+//     swap(m);//交换两个集合容器*/
+// #include<iostream>
+// #include<map>
+// using namespace std;
+// void printMap(map<int,int> &m)
+// {
+//     for(map<int,int>::iterator it=m.begin();it!=m.end();it++)
+//     {
+//         cout<<"key= "<<(*it).first<<"   value= "<<it->second<<endl;
+//     }
+// }
+// void test01()
+// {
+//     map<int,int> mp1;//默认构造函数
+//     mp1.insert(pair<int,int>(1,10));
+//     mp1.insert(pair<int,int>(3,30));
+//     mp1.insert(pair<int,int>(2,20));
+//     mp1.insert(pair<int,int>(5,50));
+//     mp1.insert(pair<int,int>(4,40));
+//     printMap(mp1);
+//     cout<<"mp1中元素个数为:"<<mp1.size()<<endl;
+//     cout<<"<--------------------------->"<<endl;
+//     if(mp1.empty())
+//     {
+//         cout<<"mp1容器为空!"<<endl;
+//     }
+//     else
+//     {
+//         map<int,int> mp2;//默认构造函数
+//         mp2.insert(pair<int,int>(1,100));
+//         mp2.insert(pair<int,int>(3,300));
+//         mp2.insert(pair<int,int>(2,200));
+//         mp2.insert(pair<int,int>(5,500));
+//         mp2.insert(pair<int,int>(4,400));
+//         printMap(mp2);
+//         cout<<"mp2中元素个数为:"<<mp2.size()<<endl;
+//         cout<<"<--------------------------->"<<endl;    
+//         //返回容器中元素的数目
+//         mp1.swap(mp2);
+//         cout<<"交换后的mp1为:"<<endl;
+//         printMap(mp1);
+//         cout<<"交换后的mp2为:"<<endl;
+//         printMap(mp2);
+//     }
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*map插入和删除*/
+// /*函数原型：
+//     insert(elem);//在容器中插入元素
+//     erase(pos);//删除pos迭代器所指的元素，返回下一个元素的迭代器
+//     erase(beg,end);//删除区间[beg,end)的所有元素，返回下一个元素的迭代器
+//     erase(key);//删除容器中值为key的元素*/
+// #include<iostream>
+// #include<map>
+// using namespace std;
+// void printMap(map<int,int> &m)
+// {
+//     for(map<int,int>::iterator it=m.begin();it!=m.end();it++)
+//     {
+//         cout<<"key= "<<(*it).first<<"   value= "<<it->second<<endl;
+//     }
+// }
+// void test01()
+// {
+//     map<int,int> mp1;//默认构造函数
+//     mp1.insert(pair<int,int>(1,10));
+//     mp1.insert(pair<int,int>(3,30));
+//     mp1.insert(pair<int,int>(2,20));
+//     mp1.insert(pair<int,int>(5,50));
+//     mp1.insert(pair<int,int>(4,40));
+//     printMap(mp1);
+//     cout<<"mp1中元素个数为:"<<mp1.size()<<endl;
+//     cout<<"<--------------------------->"<<endl;
+//     mp1.erase(mp1.begin());
+//     printMap(mp1);
+//     cout<<"mp1中元素个数为:"<<mp1.size()<<endl;
+//     cout<<"<--------------------------->"<<endl;
+//     mp1.erase(2);
+//     printMap(mp1);
+//     cout<<"mp1中元素个数为:"<<mp1.size()<<endl;
+//     cout<<"<--------------------------->"<<endl;
+//     mp1.erase(mp1.begin(),mp1.end());
+//     cout<<"mp1中元素个数为:"<<mp1.size()<<endl;
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*map查找和统计*/
+// /*函数原型：
+//     find(key);//查找key是否存在，若存在返回该键的元素的迭代器，若不存在返回map.end()
+//     count(key);//统计key的元素个数*/
+// #include<iostream>
+// #include<map>
+// using namespace std;
+// void printMap(map<int,int> &m)
+// {
+//     for(map<int,int>::iterator it=m.begin();it!=m.end();it++)
+//     {
+//         cout<<"key= "<<(*it).first<<"   value= "<<it->second<<endl;
+//     }
+// }
+// void test01()
+// {
+//     map<int,int> mp1;//默认构造函数
+//     mp1.insert(pair<int,int>(1,10));
+//     mp1.insert(pair<int,int>(3,30));
+//     mp1.insert(pair<int,int>(2,20));
+//     mp1.insert(pair<int,int>(5,50));
+//     mp1.insert(pair<int,int>(4,40));
+//     printMap(mp1);
+//     cout<<"mp1中元素个数为:"<<mp1.size()<<endl;
+//     cout<<"<--------------------------->"<<endl;
+//     //统计key的元素个数
+//     cout<<"容器中key值为2的元素个数为:"<<mp1.count(2)<<endl;
+//     //查找key是否存在，若存在返回该键的元素的迭代器，若不存在返回set.end()
+//     if(mp1.find(3)!=mp1.end())
+//     {
+//         cout<<"存在key= 3 的元素!"<<endl;
+//     }
+//     else
+//     {
+//         cout<<"不存在key= 3 的元素!"<<endl;   
+//     }
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+    
+
+// /*map容器排序--默认按照key值进行从小到大排序，利用仿函数可以改变排序规则*/
+// //map是集合式容器只能按照key值进行排序，如果想要按照value值排序，需要将其拷贝到序列式容器中(如vector、list、queue等)
+// /*内置数据类型排序*/
+// #include<iostream>
+// #include<map>
+// using namespace std;
+// //仿函数
+// class MyCompare
+// {
+//     public:
+//         bool operator()(int n1,int n2)
+//         {
+//             return n1>n2;
+//         }
+// };
+// void printMap1(map<int,int> &m)
+// {
+//     for(map<int,int>::iterator it=m.begin();it!=m.end();it++)
+//     {
+//         cout<<"key= "<<(*it).first<<"   value= "<<it->second<<endl;
+//     }
+// }
+// void printMap2(map<int,int,MyCompare> &m)
+// {
+//     for(map<int,int>::iterator it=m.begin();it!=m.end();it++)
+//     {
+//         cout<<"key= "<<(*it).first<<"   value= "<<it->second<<endl;
+//     }
+// }
+
+// void test01()
+// {
+//     map<int,int> mp1;//默认构造函数
+//     mp1.insert(pair<int,int>(1,10));
+//     mp1.insert(pair<int,int>(3,30));
+//     mp1.insert(pair<int,int>(2,20));
+//     mp1.insert(pair<int,int>(5,50));
+//     mp1.insert(pair<int,int>(4,40));
+//     printMap1(mp1);
+//     cout<<"mp1中元素个数为:"<<mp1.size()<<endl;
+//     cout<<"<--------------------------->"<<endl;
+//     map<int,int,MyCompare> mp2;//默认构造函数
+//     mp2.insert(pair<int,int>(1,10));
+//     mp2.insert(pair<int,int>(3,30));
+//     mp2.insert(pair<int,int>(2,20));
+//     mp2.insert(pair<int,int>(5,50));
+//     mp2.insert(pair<int,int>(4,40));
+//     printMap2(mp2);
+//     cout<<"mp2中元素个数为:"<<mp2.size()<<endl;
+//     cout<<"<--------------------------->"<<endl;
+
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+    
+// /*自定义数据类型排序*/
+// #include<iostream>
+// #include<string>
+// #include<map>
+// using namespace std;
+// class Person
+// {
+//     public:
+//         Person(string name,int age)
+//         {
+//             this->m_Name=name;
+//             this->m_Age=age;
+//         }
+//         string m_Name;
+//         int m_Age;
+// };
+// class ComparePerson
+// {
+//     public:
+//         bool operator()(const Person &p1,const Person &p2)
+//         {
+//             //按照年龄进行降序排列
+//             return p1.m_Age>p2.m_Age;
+//         }
+// };
+// void test01()
+// {
+//     map<Person,int,ComparePerson> M;
+//     //创建Person数据对象
+//     Person p1("刘备",40);
+//     Person p2("张飞",32);
+//     Person p3("赵云",30);
+//     Person p4("关羽",35);
+//     //插入数据
+//     M.insert(pair<Person,int>(p1,175));
+//     M.insert(pair<Person,int>(p2,180));
+//     M.insert(pair<Person,int>(p3,185));
+//     M.insert(pair<Person,int>(p4,195));
+//     //输出数据
+//     for(map<Person,int,ComparePerson>::iterator it=M.begin();it!=M.end();it++)
+//     {
+//         cout<<"姓名："<<it->first.m_Name<<"     年龄："<<it->first.m_Age<<"     身高："<<it->second<<endl;
+//     }
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*map容器案例
+//     1、公司招聘了10名员工(ABCDEFGHIJ)，10名员工进入公司后需要指定员工在哪个部门工作
+//     2、员工信息有姓名和工资组成，部门分为：策划、美术、研发，随机给10名员工分配部门和工资
+//     3、通过multimap进行信息的插入（key表示部门编号，value表示员工)，最后分部门显示员工信息
+// */
+// #include<iostream>
+// #include<vector>
+// #include<map>
+// #include<string>
+// #include<ctime>
+// using namespace std;
+// #define CEHUA 0
+// #define MEISHU 1
+// #define YANFA 2
+// class Worker
+// {
+//     public:
+//         string m_Name;
+//         int m_Salary;
+// };
+// void creatVector(vector<Worker> &V)
+// {
+//     string nameSeed="ABCDEFGHIJ";
+//     for(int i=0;i<10;i++)
+//     {
+//         Worker worker;
+//         worker.m_Name="员工";
+//         worker.m_Name+=nameSeed[i];
+//         worker.m_Salary=rand()%10001+10000;
+//         V.push_back(worker);
+//     }
+// }
+// void setGroup(vector<Worker> &V,multimap<int,Worker> &M)
+// {
+//     for(vector<Worker>::iterator it=V.begin();it!=V.end();it++)
+//     {
+//         //产生随机部门编号
+//         int depId=rand()%3;
+//         //将员工插入到分组中
+//         M.insert(make_pair(depId,*it));
+//     }
+// }
+// void showWorkerByGroup(multimap<int,Worker> &M)
+// {
+//     cout<<"策划部门："<<endl;
+//     multimap<int,Worker>::iterator pos=M.find(CEHUA);
+//     int count=M.count(CEHUA);
+//     int index=0;
+//     for(;pos!=M.end()&&index<count;pos++,index++)
+//     {
+//         cout<<"姓名："<<pos->second.m_Name<<"   工资："<<pos->second.m_Salary<<endl;
+//     }
+//     cout<<"<------------------------->"<<endl;
+//     cout<<"美术部门："<<endl;
+//     pos=M.find(MEISHU);
+//     count=M.count(MEISHU);
+//     index=0;
+//     for(;pos!=M.end()&&index<count;pos++,index++)
+//     {
+//         cout<<"姓名："<<pos->second.m_Name<<"   工资："<<pos->second.m_Salary<<endl;
+//     }
+//     cout<<"<------------------------->"<<endl;
+//     cout<<"研发部门："<<endl;
+//     pos=M.find(YANFA);
+//     count=M.count(YANFA);
+//     index=0;
+//     for(;pos!=M.end()&&index<count;pos++,index++)
+//     {
+//         cout<<"姓名："<<pos->second.m_Name<<"   工资："<<pos->second.m_Salary<<endl;
+//     }
+//     cout<<"<------------------------->"<<endl;
+// }
+// int main()
+// {
+//     srand((unsigned int)time(NULL));
+//     //创建10名员工，放到vector容器中
+//     vector<Worker> V;
+//     creatVector(V);
+//     // for(vector<Worker>::iterator it=V.begin();it!=V.end();it++)
+//     // {
+//     //     cout<<"姓名： "<<it->m_Name<<"  工资："<<it->m_Salary<<endl;
+//     // }
+//     //遍历vector容器，取出每名员工进行随机分组
+//     multimap<int,Worker> M;
+//     setGroup(V,M);
+//     //分部门显示员工信息
+//     showWorkerByGroup(M);
+
+//     system("pause");
+//     return 0;
+// }
