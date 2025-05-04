@@ -4834,3 +4834,443 @@
 //     system("pause");
 //     return 0;
 // }
+
+
+// /*STL--常用算法
+// 1、算法主要由头文件<algorithm> <functional> <numeric>组成
+// 2、<numeric>体积很小，只包含几个在序列上进行简单数学运算的模板函数
+// 3、<functional>定义了一些模板类，用以声明函数对象*/
+// /*常用遍历算法for_each()--遍历容器中的每个数据元素
+//     for_each(iterator beg,iteator end,_func);//_func可以是普通函数，也可以是仿函数
+// */
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// using namespace std;
+// void MyPrint1(int val)
+// {
+//     cout<<val<<" ";
+// }
+// class MyPrint2
+// {
+// public:
+//     void operator()(int val)
+//     {
+//         cout<<val<<" ";
+//     }
+// };
+// void test01()
+// {
+//     vector<int> V;
+//     for(int i=0;i<10;i++)
+//     {
+//         V.push_back(i);
+//     }
+//     //遍历算法
+//     for_each(V.begin(),V.end(),MyPrint1);//普通函数
+//     cout<<endl;
+//     for_each(V.begin(),V.end(),MyPrint2());//仿函数
+//     cout<<endl;
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*常用遍历算法transform()--搬运容器到另一个容器中
+// transform(iterator beg1,iterator end1,iterator beg2,_func)
+// //beg1:源容器开始迭代器     end1:源容器结束迭代器   beg2:目标容器开始迭代器     _func:普通函数或仿函数
+// */
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// using namespace std;
+// class MyTransform
+// {
+//     public:
+//         int operator()(int val)
+//         {
+//             return val+100;
+//         }
+// };
+// void MyPrint(int val)
+// {
+//     cout<<val<<" ";
+// }
+// void test01()
+// {
+//     vector<int> V1;
+//     for(int i=0;i<10;i++)
+//     {
+//         V1.push_back(i);
+//     }
+//     for_each(V1.begin(),V1.end(),MyPrint);
+//     cout<<endl;
+//     vector<int> V2;
+//     V2.resize(V1.size());
+//     //遍历算法--transform
+//     transform(V1.begin(),V1.end(),V2.begin(),MyTransform());
+//     for_each(V2.begin(),V2.end(),MyPrint);
+//     cout<<endl;
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*常用查找算法：
+//     find();//查找元素
+//     find_if();//按条件查找元素
+//     adjacent_find();//查找相邻重复元素
+//     binary_search();//二分查找法
+//     count();//统计元素个数
+//     count_if();//按条件统计元素个数
+// */
+// /*find(iterator beg,iterator end,value)--查找指定元素，找到返回指定元素的迭代器，找不到返回结束迭代器end()*/
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// using namespace std;
+// class Person
+// {
+//     public:
+//         Person(string name,int age)
+//         {
+//             this->m_Name=name;
+//             this->m_Age=age;
+//         }
+//         bool operator==(const Person &p)
+//         {
+//             if(this->m_Name==p.m_Name&&this->m_Age==p.m_Age)
+//             {
+//                 return true;
+//             }
+//             else
+//             {
+//                 return false;
+//             }
+//         }
+//         string m_Name;
+//         int m_Age;
+// };
+// //查找内置数据类型
+// void test01()
+// {
+//     vector<int> V1;
+//     for(int i=0;i<10;i++)
+//     {
+//         V1.push_back(i);
+//     }
+//     vector<int>::iterator pos=find(V1.begin(),V1.end(),5);
+//     if(pos==V1.end())
+//     {
+//         cout<<"没有找到!"<<endl;
+//     }
+//     else
+//     {
+//         cout<<"找到了："<<*pos<<endl;
+//     }
+// }
+// //查找自定义数据类型
+// void test02()
+// {
+//     vector<Person> V2;
+//     Person p1("张三",20);
+//     Person p2("李四",25);
+//     Person p3("王五",21);
+//     Person p4("赵六",24);
+//     Person p5("周七",18);
+//     //插入数据
+//     V2.push_back(p1);
+//     V2.push_back(p2);
+//     V2.push_back(p3);
+//     V2.push_back(p4);
+//     V2.push_back(p5);
+
+//     Person p("李四",25);
+//     vector<Person>::iterator pos=find(V2.begin(),V2.end(),p);
+//     if(pos==V2.end())
+//     {
+//         cout<<"没有找到："<<p.m_Name<<endl;
+//     }
+//     else
+//     {
+//         cout<<"找到了! 姓名："<<p.m_Name<<"   年龄："<<p.m_Age<<endl;
+//     }
+// }
+// int main()
+// {
+//     //test01();
+//     test02();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*find_if(iterator beg,iterator end,_pred)--_pred:函数或谓词（返回bool类型的仿函数）*/
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// #include<string>
+// using namespace std;
+// class Person
+// {
+//     public:
+//         Person(string name,int age)
+//         {
+//             this->m_Name=name;
+//             this->m_Age=age;
+//         }
+//         string m_Name;
+//         int m_Age;
+// };
+// class GreatFive
+// {
+//     public:
+//         bool operator()(int val)
+//         {
+//             return val>5;
+//         }
+// };
+// class Aged
+// {
+//     public:
+//         bool operator()(const Person &p)
+//         {
+//             return p.m_Age>24;
+//         }
+// };
+// //查找内置数据类型
+// void test01()
+// {
+//     vector<int> V1;
+//     for(int i=0;i<10;i++)
+//     {
+//         V1.push_back(i);
+//     }
+//     vector<int>::iterator pos=find_if(V1.begin(),V1.end(),GreatFive());
+//     if(pos==V1.end())
+//     {
+//         cout<<"没有找到!"<<endl;
+//     }
+//     else
+//     {
+//         cout<<"找到了："<<*pos<<endl;
+//     }
+// }
+// //查找自定义数据类型
+// void test02()
+// {
+//     vector<Person> V2;
+//     Person p1("张三",20);
+//     Person p2("李四",25);
+//     Person p3("王五",21);
+//     Person p4("赵六",24);
+//     Person p5("周七",18);
+//     //插入数据
+//     V2.push_back(p1);
+//     V2.push_back(p2);
+//     V2.push_back(p3);
+//     V2.push_back(p4);
+//     V2.push_back(p5);
+
+//     vector<Person>::iterator pos=find_if(V2.begin(),V2.end(),Aged());
+//     if(pos==V2.end())
+//     {
+//         cout<<"没有找到："<<pos->m_Name<<endl;
+//     }
+//     else
+//     {
+//         cout<<"找到了! 姓名："<<pos->m_Name<<"   年龄："<<pos->m_Age<<endl;
+//     }
+// }
+// int main()
+// {
+//     //test01();
+//     test02();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*adjacent_find(iterator beg,iterator end)--查找相邻重复元素，返回相邻元素的第一个位置的迭代器，否则返回end()*/
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// using namespace std;
+// void test01()
+// {
+//     vector<int> V1;
+//     V1.push_back(3);
+//     V1.push_back(1);
+//     V1.push_back(2);
+//     V1.push_back(5);
+//     V1.push_back(4);
+//     V1.push_back(3);
+//     V1.push_back(3);
+//     V1.push_back(2);
+//     V1.push_back(3);
+//     vector<int>::iterator pos=adjacent_find(V1.begin(),V1.end());
+//     if(pos==V1.end())
+//     {
+//         cout<<"没有找到相邻重复元素!"<<endl;
+//     }
+//     else
+//     {
+//         cout<<"找到了相邻重复元素："<<*pos<<endl;
+//     }
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*bool binary_search(iterator beg,iterator end,value)--查找指定的元素，查到返回true,否则返回false*/
+// //注意：（二分查找）在无序序列中不可用
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// using namespace std;
+// void test01()
+// {
+//     vector<int> V1;
+//     for(int i=0;i<10;i++)
+//     {
+//         V1.push_back(i);
+//     }
+//     bool ret=binary_search(V1.begin(),V1.end(),5);
+//     if(ret)
+//     {
+//         cout<<"通过二分查找法找到了指定元素！"<<endl;
+//     }
+//     else
+//     {
+//         cout<<"通过二分查找法没有找到指定元素！"<<endl;       
+//     }
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*count(iterator beg,iterator end,value)--统计元素出现的次数*/
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// using namespace std;
+// void test01()
+// {
+//     vector<int> V1;
+//     V1.push_back(3);
+//     V1.push_back(1);
+//     V1.push_back(2);
+//     V1.push_back(5);
+//     V1.push_back(4);
+//     V1.push_back(3);
+//     V1.push_back(3);
+//     V1.push_back(2);
+//     V1.push_back(3);
+//     int num=count(V1.begin(),V1.end(),3);
+//     cout<<"容器V1中元素3出现的次数为:"<<num<<endl;
+// }
+// int main()
+// {
+//     test01();
+
+//     system("pause");
+//     return 0;
+// }
+
+
+// /*count_if(iterator beg,iterator end,_pred)--按条件统计元素出现的次数*/
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// using namespace std;
+// class Great3
+// {
+//     public:
+//         bool operator()(int val)
+//         {
+//             return val>3;
+//         }
+// };
+// class Person
+// {
+//     public:
+//         Person(string name,int age)
+//         {
+//             this->m_Name=name;
+//             this->m_Age=age;
+//         }
+//         string m_Name;
+//         int m_Age;
+// };
+// class Great21
+// {
+//     public:
+//         bool operator()(const Person &p)
+//         {
+//             return p.m_Age>21;
+//         }
+// };
+// //内置数据类型
+// void test01()
+// {
+//     vector<int> V1;
+//     V1.push_back(3);
+//     V1.push_back(1);
+//     V1.push_back(2);
+//     V1.push_back(5);
+//     V1.push_back(4);
+//     V1.push_back(3);
+//     V1.push_back(3);
+//     V1.push_back(2);
+//     V1.push_back(3);
+//     int num=count_if(V1.begin(),V1.end(),Great3());
+//     cout<<"容器V1中大于3的元素出现的次数为:"<<num<<endl;
+// }
+// //自定义数据类型
+// void test02()
+// {
+//     vector<Person> V2;
+//     Person p1("张三",20);
+//     Person p2("李四",25);
+//     Person p3("王五",21);
+//     Person p4("赵六",24);
+//     Person p5("周七",25);
+//     //插入数据
+//     V2.push_back(p1);
+//     V2.push_back(p2);
+//     V2.push_back(p3);
+//     V2.push_back(p4);
+//     V2.push_back(p5);
+//     int num2=count_if(V2.begin(),V2.end(),Great21());
+//     cout<<"容器V2中年龄大于21的元素出现的次数为:"<<num2<<endl;
+// }
+// int main()
+// {
+//     //test01();
+//     test02();
+
+//     system("pause");
+//     return 0;
+// }
